@@ -18,6 +18,27 @@ This is a OTP umbrella application. Containing other 3 OTP applications within t
 /apps/web
 ```
 
+### Usage
+
+An app should post events to RabbitMQ with a given format, in order for this app to consume and process events to build the feed.
+
+We support 3 kind of events. `create`, `update`, `delete`. In order for us to handle an `update` or `delete` correctly, we should have already processed the create. `udpate` wont work once the event is deleted.
+
+Our generic event looks like this.
+
+```
+{
+	"event": {
+		"type": "create",
+		"tenant": 0,
+		"user_id": 0,
+		"content": "Main data content",
+		"extra": {},
+		"date": "ISOz date"
+	}
+}
+```
+
 ### backbone
 
 - Backbone contains the RabbitMQ `Consumer` generic server, which responsibility is to store events into the feed.
