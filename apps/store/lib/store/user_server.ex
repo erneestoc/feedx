@@ -1,4 +1,5 @@
 defmodule Store.UserServer do
+  @moduledoc false
   use GenServer
   import Ecto.Query, only: [from: 2]
   alias Store.SourceRepo

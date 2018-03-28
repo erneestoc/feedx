@@ -1,4 +1,5 @@
 defmodule Store.Supervisor do
+  @moduledoc false
   use Supervisor
   alias Store.{SourceRepo, FeedRepo}
 

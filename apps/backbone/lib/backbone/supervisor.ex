@@ -1,4 +1,5 @@
 defmodule Backbone.Supervisor do
+  @moduledoc false
   use Supervisor
   alias Backbone.{Consumer, Feed}
 

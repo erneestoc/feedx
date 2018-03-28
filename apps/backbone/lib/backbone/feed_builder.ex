@@ -1,4 +1,5 @@
 defmodule Backbone.FeedBuilder do
+  @moduledoc false
   defp types, do: Application.get_env(:backbone, :event_types)
 
   def build(json) do
@@ -12,10 +13,10 @@ defmodule Backbone.FeedBuilder do
     member =
       types()
       |> Enum.member?(type)
-
-    cond do
-      member -> {:ok, json}
-      true -> {:error, "Type not found"}
+    if member do
+      {:ok, json}
+    else
+      {:error, "Type not found"}
     end
   end
 
