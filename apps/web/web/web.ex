@@ -6,7 +6,6 @@ defmodule Web.Web do
   This can be used in your application as:
 
       use Web.Web, :controller
-      use Web.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -28,22 +27,6 @@ defmodule Web.Web do
       use Phoenix.Controller
 
       import Web.Router.Helpers
-      import Web.Gettext
-    end
-  end
-
-  def view do
-    quote do
-      use Phoenix.View, root: "web/templates"
-
-      # Import convenience functions from controllers
-      import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
-
-      # Use all HTML functionality (forms, tags, etc)
-      use Phoenix.HTML
-
-      import Web.Router.Helpers
-      import Web.ErrorHelpers
       import Web.Gettext
     end
   end

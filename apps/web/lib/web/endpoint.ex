@@ -1,18 +1,8 @@
 defmodule Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :web
 
-  socket "/socket", Web.UserSocket
-
-  # Serve at "/" the static files from "priv/static" directory.
-  #
-  # You should set gzip to true if you are running phoenix.digest
-  # when deploying your static files in production.
-  plug Plug.Static,
-    at: "/", from: :web, gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
-
-  # Code reloading can be explicitly enabled under the
-  # :code_reloader configuration of your endpoint.
+  socket "/ws/v1/feed", Web.FeedSocket
+  
   if code_reloading? do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
@@ -23,7 +13,7 @@ defmodule Web.Endpoint do
   plug Plug.Logger
 
   plug Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
+    parsers: [:urlencoded, :json],
     pass: ["*/*"],
     json_decoder: Poison
 

@@ -13,14 +13,21 @@ defmodule Web.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Web do
-    pipe_through :browser # Use the default browser stack
+  scope "/api/v1" do
+    pipe_through :api
 
-    get "/", PageController, :index
+    get "/feed", FeedController, :full_index
+    get "/feed/:tenant_id", FeedController, :tentant_index
+
+    get "/feed/:tenant_id/events/:event_id", EventController, :show
+    get "/feed/:tenant_id/events/:event_id/like", EventController, :like
+    get "/feed/:tenant_id/events/:event_id/unlike", EventController, :unlike
+
+    get "/feed/:tenant_id/events/:event_id/comments", CommentController, :index
+    post "/feed/:tenant_id/events/:event_id/comments", CommentController, :create
+    put "/feed/:tenant_id/events/:event_id/comments/:comment_id", CommentController, :update
+    patch "/feed/:tenant_id/events/:event_id/comments/:comment_id", CommentController, :update
+    delete "/feed/:tenant_id/events/:event_id/comments/:comment_id", CommentController, :delete
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Web do
-  #   pipe_through :api
-  # end
 end
