@@ -13,7 +13,7 @@ defmodule Backbone.Consumer do
   end
 
   def init(:ok) do
-    {:ok, conn} = Connection.open("amqp://guest:guest@127.0.0.1")
+    {:ok, conn} = Connection.open(Application.get_env(:backbone, :rabbitmq))
     {:ok, chan} = Channel.open(conn)
     setup_queue(chan)
     # Limit unacknowledged messages to 10
