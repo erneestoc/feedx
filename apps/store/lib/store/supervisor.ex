@@ -1,6 +1,6 @@
 defmodule Store.Supervisor do
   use Supervisor
-  alias Store.{FondRepo, FeedRepo}
+  alias Store.{SourceRepo, FeedRepo}
   def start_link do
   	Supervisor.start_link(__MODULE__, [])
   end
@@ -12,7 +12,7 @@ defmodule Store.Supervisor do
   defp children do
   	[
   	  supervisor(SourceRepo, []),
-      #supervisor(FeedRepo, []),
+      supervisor(FeedRepo, []),
       supervisor(ConCache, [[], [name: :feed_cache]])
   	]
   end

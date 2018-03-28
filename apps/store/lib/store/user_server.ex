@@ -1,6 +1,6 @@
 defmodule Store.UserServer do
   use GenServer
-  import Ecto.Query, only: [from/2]
+  import Ecto.Query, only: [from: 2]
   alias Store.SourceRepo
 
   def start_link(_, opts) do
@@ -16,7 +16,7 @@ defmodule Store.UserServer do
   	send_result(user)
   end
 
-  defp send_result(result), do: {reply, result, %{}}
+  defp send_result(result), do: {:reply, result, %{}}
 
   defp retrieve_hot(id) do
   	ConCache.get(:feed_cache, "#{id}")
@@ -30,8 +30,8 @@ defmodule Store.UserServer do
 
   defp build_query(id) do
     from r in table(),
-      where: (field(r, ^user_id()) == type(^id, :integer),
-     select: select(sentence0, [r], map(r, [user_id(), full_name(), profile_pic()]))
+      where: field(r, ^user_id()) == type(^id, :integer),
+     select: map(r, [user_id(), full_name(), profile_pic()])
   end
 
   defp table, do: Application.get_env(:store, :external_db_table_name)

@@ -8,12 +8,14 @@ defmodule Backbone.Consumer do
   @queue       "gen_server_test_queue"
   @queue_error "#{@queue}_error"
 
+  defp settings, do: Application.get_env(:backbone, :rabbitmq)
+
   def start_link(_, opts) do
   	GenServer.start_link(__MODULE__, :ok, opts)
   end
 
   def init(:ok) do
-    {:ok, conn} = Connection.open(Application.get_env(:backbone, :rabbitmq))
+    {:ok, conn} = Connection.open(settings())
     {:ok, chan} = Channel.open(conn)
     setup_queue(chan)
     # Limit unacknowledged messages to 10
