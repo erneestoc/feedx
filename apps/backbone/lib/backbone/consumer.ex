@@ -4,14 +4,14 @@ defmodule Backbone.Consumer do
   alias Backbone.FeedBuilder
   require Logger
 
-  @exchange    "gen_server_test_exchange"
-  @queue       "gen_server_test_queue"
+  @exchange "gen_server_test_exchange"
+  @queue "gen_server_test_queue"
   @queue_error "#{@queue}_error"
 
   defp settings, do: Application.get_env(:backbone, :rabbitmq)
 
   def start_link(_, opts) do
-  	GenServer.start_link(__MODULE__, :ok, opts)
+    GenServer.start_link(__MODULE__, :ok, opts)
   end
 
   def init(:ok) do
@@ -45,34 +45,42 @@ defmodule Backbone.Consumer do
   end
 
   def handle_info({:basic_deliver, payload, %{delivery_tag: tag, redelivered: redelivered}}, chan) do
-    spawn fn -> consume(chan, tag, redelivered, payload) end
+    spawn(fn -> consume(chan, tag, redelivered, payload) end)
     {:noreply, chan}
   end
 
   defp setup_queue(chan) do
     {:ok, _} = Queue.declare(chan, @queue_error, durable: true)
+
     # Messages that cannot be delivered to any consumer in the main queue will be routed to the error queue
-    {:ok, _} = Queue.declare(chan, @queue,
-                             durable: true,
-                             arguments: [
-                               {"x-dead-letter-exchange", :longstr, ""},
-                               {"x-dead-letter-routing-key", :longstr, @queue_error}
-                             ]
-                            )
+    {:ok, _} =
+      Queue.declare(
+        chan,
+        @queue,
+        durable: true,
+        arguments: [
+          {"x-dead-letter-exchange", :longstr, ""},
+          {"x-dead-letter-routing-key", :longstr, @queue_error}
+        ]
+      )
+
     :ok = Exchange.fanout(chan, @exchange, durable: true)
     :ok = Queue.bind(chan, @queue, @exchange)
   end
 
   defp consume(channel, tag, redelivered, payload) do
     json = Poison.decode!(payload)
-     case FeedBuilder.build(json) do
+
+    case FeedBuilder.build(json) do
       {:ok, _built} ->
-        Logger.debug "[Backbone.Consumer] - consume\\4 SUCCESS"
+        Logger.debug("[Backbone.Consumer] - consume\\4 SUCCESS")
+
       _ ->
-        :ok = Basic.reject channel, tag, requeue: false
-        Logger.debug "[Backbone.Consumer] - consume\\4 FAIL REQUEUE"
-     end
-    :ok = Basic.ack channel, tag
+        :ok = Basic.reject(channel, tag, requeue: false)
+        Logger.debug("[Backbone.Consumer] - consume\\4 FAIL REQUEUE")
+    end
+
+    :ok = Basic.ack(channel, tag)
   rescue
     # Requeue unless it's a redelivered message.
     # This means we will retry consuming a message once in case of exception
@@ -82,7 +90,7 @@ defmodule Backbone.Consumer do
     # Make sure you call ack, nack or reject otherwise comsumer will stop
     # receiving messages.
     exception ->
-      :ok = Basic.reject channel, tag, requeue: not redelivered
-      IO.puts "Error converting #{payload} to integer"
+      :ok = Basic.reject(channel, tag, requeue: not redelivered)
+      IO.puts("Error converting #{payload} to integer")
   end
 end

@@ -15,7 +15,6 @@ defmodule Feedx.MixProject do
   #
   # Run "mix help deps" for examples and options.
   defp deps do
-    [{:edeliver, "~> 1.4.5"},
-     {:distillery, "~> 1.0.0", warn_missing: false}]
+    [{:edeliver, "~> 1.4.5"}, {:distillery, "~> 1.0.0", warn_missing: false}]
   end
 end
