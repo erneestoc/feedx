@@ -18,13 +18,13 @@ This is a OTP umbrella application. Containing other 3 OTP applications within t
 /apps/web
 ```
 
-### Usage
+## Usage
 
 An app should post events to RabbitMQ with a given format, in order for this app to consume and process events to build the feed.
 
 We support 3 kind of events. `create`, `update`, `delete`. In order for us to handle an `update` or `delete` correctly, we should have already processed the create. `udpate` wont work once the event is deleted.
 
-Our generic event looks like this.
+### Our generic event looks like this.
 
 ```
 {
@@ -39,21 +39,7 @@ Our generic event looks like this.
 }
 ```
 
-### backbone
-
-- Backbone contains the RabbitMQ `Consumer` generic server, which responsibility is to store events into the feed.
-- `FeedBuilder` helps the consumer process events.
-- `Feed` generic server interacts with the store to render needed json for the feed's events, comments, likes, and publish events to the web channels.
-
-### store
-
-- `FeedRepo` is the main data store for our feed. Can be backed by any [ecto's supported databases](https://github.com/elixir-ecto/ecto#usage).
-- `SourceRepo` contains a connection to other app database, in which user's are stored. We should be able to get user name, id, and profile pic from one table. [ecto's supported databases](https://github.com/elixir-ecto/ecto#usage)
-- `UserServer` retrieves and caches users given an id. Cache is backed by [con_cache](https://github.com/sasa1977/con_cache), which uses `ets` for fast querying. 
-
-### web
-
-- The web project is an [elixir phoenix](http://phoenixframework.org/) API.
+### This app exposes an API endpoint.
 
 __GET @ /api/v1/feed__
 
@@ -130,7 +116,89 @@ __GET @ /api/v1/feed/:tenant_id/event/:event_id/like__
 
 __GET @ /api/v1/feed/:tenant_id/event/:event_id/unlike__
 
-### setup
+### Websockets
+
+We can also subscibe for updates using [phoenix channels](https://hexdocs.pm/phoenix/channels.html).
+
+Websocket @ `/ws/v1/feed`
+
+### Channel Subscriptions
+
+Subscribe for company events @ `company:<id>`
+```
+// new event
+{
+	"type": "create",
+	"data": {},
+	"id": 0
+}
+
+// update event
+{
+	"type": "create",
+	"data": {},
+	"id": 0
+}
+
+// delete event
+{
+	"id": 0
+}
+```
+
+Subscribe for event changes @ `event:<id>`
+
+```
+// new comment
+{
+	"type": "create_comment",
+	"data": {},
+	"id": 0
+}
+
+// update comment
+{
+	"type": "update_comment",
+	"data": {},
+	"id": 0
+}
+
+// delete comment
+{
+	"type": "delete_comment",
+	"id": 0
+}
+
+// new like state
+{
+	"type": "update_likes",
+	"data": {}
+}
+
+// someone is typing
+{
+	"type": "typing",
+	"data": {}
+}
+```
+
+## backbone
+
+- Backbone contains the RabbitMQ `Consumer` generic server, which responsibility is to store events into the feed.
+- `FeedBuilder` helps the consumer process events.
+- `Feed` generic server interacts with the store to render needed json for the feed's events, comments, likes, and publish events to the web channels.
+
+## store
+
+- `FeedRepo` is the main data store for our feed. Can be backed by any [ecto's supported databases](https://github.com/elixir-ecto/ecto#usage).
+- `SourceRepo` contains a connection to other app database, in which user's are stored. We should be able to get user name, id, and profile pic from one table. [ecto's supported databases](https://github.com/elixir-ecto/ecto#usage)
+- `UserServer` retrieves and caches users given an id. Cache is backed by [con_cache](https://github.com/sasa1977/con_cache), which uses `ets` for fast querying. 
+
+## web
+
+- The web project is an [elixir phoenix](http://phoenixframework.org/) API.
+
+## setup
 
 
 Change RabbitMQ config on `apps/backbone/config/{dev, test, prod}.exs`.
