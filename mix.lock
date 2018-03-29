@@ -16,6 +16,7 @@
   "exactor": {:hex, :exactor, "2.2.4", "5efb4ddeb2c48d9a1d7c9b465a6fffdd82300eb9618ece5d34c3334d5d7245b1", [:mix], [], "hexpm"},
   "excoveralls": {:hex, :excoveralls, "0.8.1", "0bbf67f22c7dbf7503981d21a5eef5db8bbc3cb86e70d3798e8c802c74fa5e27", [:mix], [{:exjsx, ">= 3.0.0", [hex: :exjsx, repo: "hexpm", optional: false]}, {:hackney, ">= 0.12.0", [hex: :hackney, repo: "hexpm", optional: false]}], "hexpm"},
   "exjsx": {:hex, :exjsx, "4.0.0", "60548841e0212df401e38e63c0078ec57b33e7ea49b032c796ccad8cde794b5c", [:mix], [{:jsx, "~> 2.8.0", [hex: :jsx, repo: "hexpm", optional: false]}], "hexpm"},
+  "faker": {:hex, :faker, "0.10.0", "367c2ae47e7b4ac6410e1eaa880c07b5fe4194476f697d37ac1ce25f3058aae2", [:mix], [], "hexpm"},
   "file_system": {:hex, :file_system, "0.2.4", "f0bdda195c0e46e987333e986452ec523aed21d784189144f647c43eaf307064", [:mix], [], "hexpm"},
   "gettext": {:hex, :gettext, "0.15.0", "40a2b8ce33a80ced7727e36768499fc9286881c43ebafccae6bab731e2b2b8ce", [:mix], [], "hexpm"},
   "goldrush": {:hex, :goldrush, "0.1.9", "f06e5d5f1277da5c413e84d5a2924174182fb108dabb39d5ec548b27424cd106", [:rebar3], [], "hexpm"},

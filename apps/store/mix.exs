@@ -28,7 +28,8 @@ defmodule Store.MixProject do
     [
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
-      {:con_cache, "~> 0.12.1"}
+      {:con_cache, "~> 0.12.1"},
+      {:faker, "~> 0.10", only: :test}
     ]
   end
 end

@@ -1,4 +1,5 @@
 defmodule Store.Event do
+  @moduledoc false
   use Ecto.Schema
 
   schema "events" do

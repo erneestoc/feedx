@@ -1,4 +1,5 @@
 defmodule Store.Like do
+  @moduledoc false
   use Ecto.Schema
 
   schema "likes" do

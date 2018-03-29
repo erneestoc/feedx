@@ -11,7 +11,7 @@ defmodule Store.Comments do
   end
 
   def handle_call({:index, params}, _from, state) do
-  	send_result(nil, state)
+    send_result(nil, state)
   end
 
   def handle_call({:create, params}, _from, state) do

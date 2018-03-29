@@ -1,3 +1,5 @@
+Code.require_file("test_case.exs", "./test/support")
+Code.require_file("user_test_helper.exs", "./test/support")
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(Store.FeedRepo, :manual)
-Ecto.Adapters.SQL.Sandbox.mode(Store.SourceRepo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(Store.FeedRepo, :auto)
+Ecto.Adapters.SQL.Sandbox.mode(Store.SourceRepo, :auto)

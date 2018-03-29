@@ -19,7 +19,7 @@ defmodule Store.Supervisor do
       worker(Users, [[], [name: Users]]),
       worker(FeedBuilder, [[], [name: FeedBuilder]]),
       worker(Feed, [[], [name: Feed]]),
-      worker(Comments, [[], [name: Comments]]),
+      worker(Comments, [[], [name: Comments]])
     ]
   end
 end

@@ -26,6 +26,7 @@ defmodule Store.FeedBuilder do
     member =
       types()
       |> Enum.member?(type)
+
     if member do
       {:ok, json}
     else

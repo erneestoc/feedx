@@ -13,20 +13,26 @@ defmodule Store.Users do
   end
 
   def handle_call({:get, id}, _, _) do
-    user = retrieve_hot(id) || retrieve_cold(id)
-    send_result(user)
+    id
+    |> get()
+    |> send_result()
   end
 
   defp send_result(result), do: {:reply, result, %{}}
 
+  def get(id) do
+    retrieve_hot(id) || retrieve_cold(id)
+  end
+
   defp retrieve_hot(id) do
-    ConCache.get(:feed_cache, "#{id}")
+    ConCache.get(:user_cache, "#{id}")
   end
 
   defp retrieve_cold(id) do
     id
     |> build_query()
     |> SourceRepo.one!()
+    |> to_struct()
   end
 
   defp build_query(id) do
@@ -35,6 +41,14 @@ defmodule Store.Users do
       where: field(r, ^user_id()) == type(^id, :integer),
       select: map(r, [user_id(), full_name(), profile_pic()])
     )
+  end
+
+  defp to_struct(map) do
+    %Store.User{
+      id: map[user_id()],
+      full_name: map[full_name()],
+      profile_pic: map[profile_pic()]
+    }
   end
 
   defp table, do: Application.get_env(:store, :external_db_table_name)

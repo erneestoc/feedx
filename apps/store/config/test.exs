@@ -16,7 +16,7 @@ config :store, Store.SourceRepo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
-config :store, :external_db_table_name, "tabla"
+config :store, :external_db_table_name, "users"
 config :store, :external_db_full_name, :full_name
 config :store, :external_db_user_id, :id
 config :store, :external_db_profile_pic, :image_url
