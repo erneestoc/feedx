@@ -1,13 +1,26 @@
 defmodule FeedBuilderTest do
   use ExUnit.Case
   doctest Store.FeedBuilder
-  alias Store.{FeedRepo, SourceRepo}
+  alias Store.{FeedRepo, SourceRepo, FeedBuilder}
 
-  setup do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(FeedRepo)
+  setup_all do
+    UserTestHelper.ddl()
+    events = FeedTestHelper.create()
+    %{events: events}
   end
 
-  test "greets the world" do
-    assert Store.hello() == :world
+  test "persist event", %{events: events} do
+    event = List.first(events)
+    {:ok, event} = FeedBuilder.build(event)
+    assert is_number(event.tenant_id)
+    assert is_binary(event.type)
+  end
+
+  test "update event", %{events: events} do
+
+  end
+
+  test "delete event", %{events: events} do
+
   end
 end

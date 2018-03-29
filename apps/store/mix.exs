@@ -19,7 +19,7 @@ defmodule Store.MixProject do
   def application do
     [
       mod: {Store, []},
-      extra_applications: [:logger, :ecto, :con_cache]
+      extra_applications: [:logger, :ecto, :con_cache, :poison]
     ]
   end
 
@@ -29,6 +29,7 @@ defmodule Store.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
       {:con_cache, "~> 0.12.1"},
+      {:poison, "~> 3.1"},
       {:faker, "~> 0.10", only: :test}
     ]
   end

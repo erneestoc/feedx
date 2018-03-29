@@ -7,7 +7,7 @@ defmodule Store.FeedRepo.Migrations.CreateEventsTable do
       add(:external_id, :integer)
       add(:user_id, :integer)
       add(:tenant_id, :integer)
-      add(:content, :string)
+      add(:content, :text)
       add(:data, :json)
       add(:date, :naive_datetime)
 
