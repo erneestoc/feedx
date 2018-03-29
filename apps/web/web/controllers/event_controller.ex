@@ -1,21 +1,28 @@
 defmodule Web.EventController do
   use Web.Web, :controller
+  alias Backbone.Feed
 
-  def show(conn, _params) do
-    conn
-    |> put_status(200)
-    |> json(%{ok: true})
+  def show(conn, params) do
+    Feed
+    |> GenServer.call({:show, params})
+    |> send_response(conn)
   end
 
-  def like(conn, _params) do
-    conn
-    |> put_status(200)
-    |> json(%{ok: true})
+  def like(conn, params) do
+    Feed
+    |> GenServer.call({:like, params})
+    |> send_response(conn)
   end
 
-  def unlike(conn, _params) do
+  def unlike(conn, params) do
+    Feed
+    |> GenServer.call({:unlike, params})
+    |> send_response(conn)
+  end
+
+  defp send_response(result, conn) do
     conn
     |> put_status(200)
-    |> json(%{ok: true})
+    |> json(result)
   end
 end
