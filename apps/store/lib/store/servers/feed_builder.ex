@@ -1,12 +1,25 @@
-defmodule Backbone.FeedBuilder do
+defmodule Store.FeedBuilder do
   @moduledoc false
+  use GenServer
+
+  def start_link(_, opts) do
+    GenServer.start_link(__MODULE__, :ok, opts)
+  end
+
+  def init(:ok) do
+    {:ok, %{}}
+  end
+
+  defp send_result(result), do: {:reply, result, %{}}
+
   defp types, do: Application.get_env(:backbone, :event_types)
 
-  def build(json) do
+  def handle_call({:build, json}, _from, _state) do
     json
     |> validate()
     |> store()
     |> emit()
+    |> send_result()
   end
 
   defp validate(%{"type" => type} = json) do

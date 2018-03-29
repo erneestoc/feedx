@@ -2,7 +2,7 @@ defmodule Backbone.Consumer do
   @moduledoc false
   use GenServer
   use AMQP
-  alias Backbone.FeedBuilder
+  alias Store.FeedBuilder
   require Logger
 
   @exchange "gen_server_test_exchange"

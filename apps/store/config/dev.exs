@@ -12,7 +12,7 @@ config :store, Store.SourceRepo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "store_db_dev",
+  database: "store_source_db_dev",
   hostname: "localhost",
   pool_size: 10
 

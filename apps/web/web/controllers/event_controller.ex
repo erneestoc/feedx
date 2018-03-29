@@ -1,6 +1,6 @@
 defmodule Web.EventController do
   use Web.Web, :controller
-  alias Backbone.Feed
+  alias Store.Feed
 
   def show(conn, params) do
     Feed

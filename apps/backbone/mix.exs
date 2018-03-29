@@ -18,6 +18,7 @@ defmodule Backbone.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      mod: {Backbone, []},
       extra_applications: [:logger, :amqp]
     ]
   end

@@ -1,4 +1,4 @@
-defmodule Backbone.Feed do
+defmodule Store.Feed do
   @moduledoc false
   use GenServer
 

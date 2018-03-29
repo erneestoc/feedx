@@ -1,4 +1,4 @@
-defmodule Backbone.Comments do
+defmodule Store.Comments do
   @moduledoc false
   use GenServer
 

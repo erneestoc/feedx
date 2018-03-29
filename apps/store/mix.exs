@@ -18,6 +18,7 @@ defmodule Store.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      mod: {Store, []},
       extra_applications: [:logger, :ecto, :con_cache]
     ]
   end

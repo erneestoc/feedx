@@ -1,6 +1,6 @@
 defmodule Web.CommentController do
   use Web.Web, :controller
-  alias Backbone.Comments
+  alias Store.Comments
 
   def index(conn, params) do
     Comments

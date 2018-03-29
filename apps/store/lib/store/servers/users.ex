@@ -1,4 +1,4 @@
-defmodule Store.UserServer do
+defmodule Store.Users do
   @moduledoc false
   use GenServer
   import Ecto.Query, only: [from: 2]
@@ -26,7 +26,7 @@ defmodule Store.UserServer do
   defp retrieve_cold(id) do
     id
     |> build_query()
-    |> FondRepo.one!()
+    |> SourceRepo.one!()
   end
 
   defp build_query(id) do

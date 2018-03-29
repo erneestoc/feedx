@@ -1,6 +1,6 @@
 defmodule Web.FeedController do
   use Web.Web, :controller
-  alias Backbone.Feed
+  alias Store.Feed
 
   def full_index(conn, params) do
     Feed

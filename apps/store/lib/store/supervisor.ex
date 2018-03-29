@@ -1,7 +1,7 @@
 defmodule Store.Supervisor do
   @moduledoc false
   use Supervisor
-  alias Store.{SourceRepo, FeedRepo}
+  alias Store.{SourceRepo, FeedRepo, Comments, FeedBuilder, Feed, Users}
 
   def start_link do
     Supervisor.start_link(__MODULE__, [])
@@ -15,7 +15,11 @@ defmodule Store.Supervisor do
     [
       supervisor(SourceRepo, []),
       supervisor(FeedRepo, []),
-      supervisor(ConCache, [[], [name: :feed_cache]])
+      supervisor(ConCache, [[], [name: :user_cache]]),
+      worker(Users, [[], [name: Users]]),
+      worker(FeedBuilder, [[], [name: FeedBuilder]]),
+      worker(Feed, [[], [name: Feed]]),
+      worker(Comments, [[], [name: Comments]]),
     ]
   end
 end

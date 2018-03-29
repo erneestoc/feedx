@@ -1,7 +1,7 @@
 defmodule Backbone.Supervisor do
   @moduledoc false
   use Supervisor
-  alias Backbone.{Consumer, Feed}
+  alias Backbone.Consumer
 
   def start_link do
     Supervisor.start_link(__MODULE__, [])
@@ -13,8 +13,7 @@ defmodule Backbone.Supervisor do
 
   defp children do
     [
-      worker(Consumer, [[], [name: Consumer]]),
-      worker(Feed, [[], [name: Feed]])
+      worker(Consumer, [[], [name: Consumer]])
     ]
   end
 end
