@@ -17,7 +17,14 @@ defmodule FeedBuilderTest do
   end
 
   test "update event", %{events: events} do
-
+    event_map = Enum.at(events, 1)
+    {:ok, event} = FeedBuilder.build(event_map)
+    event_map = Map.put(event_map, "type", "update")
+    event_map_internal = Map.put(event_map["event"], "content", "hello")
+    event_map = Map.put(event_map, "event", event_map_internal)
+    {:ok, event2} = FeedBuilder.build(event_map)
+    assert event.id == event2.id
+    assert event2.content == "hello"
   end
 
   test "delete event", %{events: events} do

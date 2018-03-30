@@ -1,10 +1,10 @@
 defmodule FeedTestHelper do
-  def create do
+  def create(num \\ 1_000) do
   	users = (0..10)
       |> Enum.map(&create_user/1)
     companies = (0..5)
       |> Enum.map(fn _ -> :rand.uniform(1_000_000_000) end)
-    (0..1_000)
+    (0..num)
       |> Enum.map(fn x -> event(x, users, companies) end)
   end
 

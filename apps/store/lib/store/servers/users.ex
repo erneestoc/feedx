@@ -25,7 +25,7 @@ defmodule Store.Users do
   end
 
   defp retrieve_hot(id) do
-    ConCache.get(:user_cache, "#{id}")
+    ConCache.get(:user_cache, "#{id}u")
   end
 
   defp retrieve_cold(id) do
