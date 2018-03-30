@@ -1,4 +1,4 @@
-# Feedx
+# Feedx - WIP
 
 Generic feed adding social features to current applications. 
 
