@@ -1,6 +1,6 @@
-defmodule BackboneTest do
+defmodule BusTest do
   use ExUnit.Case
-  doctest Backbone
+  doctest Bus
 
   test "todo" do
   end

@@ -9,7 +9,7 @@ defmodule Bus.Consumer do
   @queue "gen_server_test_queue"
   @queue_error "#{@queue}_error"
 
-  defp settings, do: Application.get_env(:backbone, :rabbitmq)
+  defp settings, do: Application.get_env(:bus, :rabbitmq)
 
   def start_link(_, opts) do
     GenServer.start_link(__MODULE__, :ok, opts)
@@ -72,11 +72,11 @@ defmodule Bus.Consumer do
 
     case FeedBuilder.build(json) do
       {:ok, _built} ->
-        Logger.debug("[Backbone.Consumer] - consume\\4 SUCCESS")
+        Logger.debug(fn -> "[Bus.Consumer] - consume\\4 SUCCESS" end)
 
       _ ->
         :ok = Basic.reject(channel, tag, requeue: false)
-        Logger.debug("[Backbone.Consumer] - consume\\4 FAIL REQUEUE")
+        Logger.debug(fn -> "[Bus.Consumer] - consume\\4 FAIL REQUEUE" end)
     end
 
     :ok = Basic.ack(channel, tag)
@@ -90,6 +90,6 @@ defmodule Bus.Consumer do
     # receiving messages.
     _exception ->
       :ok = Basic.reject(channel, tag, requeue: not redelivered)
-      IO.puts("Error converting #{payload} to integer")
+      Logger.error(fn -> "Error converting #{payload} to integer" end)
   end
 end
