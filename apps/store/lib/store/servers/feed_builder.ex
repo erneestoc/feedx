@@ -89,7 +89,6 @@ defmodule Store.FeedBuilder do
   defp put(err), do: err
 
   defp emit({:ok, event}, event_type) do
-    IO.inspect("TODO: publish")
     {:ok, event}
   end
 

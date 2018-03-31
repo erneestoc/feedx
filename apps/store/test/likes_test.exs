@@ -32,7 +32,8 @@ defmodule LikeTest do
   end
 
   defp create_event do
-    FeedTestHelper.create(1)
+    1
+    |> FeedTestHelper.create()
     |> List.first()
     |> FeedBuilder.build()
   end

@@ -7,7 +7,8 @@ defmodule FeedTest do
     UserTestHelper.ddl()
 
     events =
-      FeedTestHelper.create(10)
+      10
+      |> FeedTestHelper.create()
       |> Enum.map(fn params ->
         {:ok, event} = FeedBuilder.build(params)
         event
