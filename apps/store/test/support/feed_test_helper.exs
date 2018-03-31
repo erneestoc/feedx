@@ -2,7 +2,7 @@ defmodule FeedTestHelper do
   alias Faker.Lorem
 
   def create(num \\ 1_000) do
-    users = create_10_users
+    users = create_10_users()
 
     companies =
       0..5

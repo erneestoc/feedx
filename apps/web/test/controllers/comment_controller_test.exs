@@ -1,7 +1,7 @@
 defmodule Web.CommentControllerTest do
   use Web.ConnCase
 
-  test "GET /", %{conn: conn} do
+  test "GET /", %{conn: _conn} do
 
   end
 end

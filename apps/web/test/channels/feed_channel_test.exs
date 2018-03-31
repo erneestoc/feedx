@@ -37,7 +37,7 @@ defmodule Web.EventsChannelTest do
   end
 
   test "event not received on wrong channel", %{events: events} do
-    {map, event} = Enum.at(events, 2)
+    {map, _event} = Enum.at(events, 2)
     {_, event2} = Enum.at(events, 3)
     {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
@@ -58,7 +58,7 @@ defmodule Web.EventsChannelTest do
   end
 
   test "receive comment broadcast for event", %{events: events} do
-    {map, event} = Enum.at(events, 5)
+    {_map, event} = Enum.at(events, 5)
     {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(EventsChannel, "events:#{event.id}")
@@ -70,7 +70,7 @@ defmodule Web.EventsChannelTest do
   end
 
   test "receive comment delete for event", %{events: events} do
-    {map, event} = Enum.at(events, 5)
+    {_map, event} = Enum.at(events, 5)
     {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(EventsChannel, "events:#{event.id}")

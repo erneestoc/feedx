@@ -1,7 +1,7 @@
 defmodule FeedTest do
   use ExUnit.Case
   doctest Store.Feed
-  alias Store.{FeedRepo, SourceRepo, FeedBuilder, Feed}
+  alias Store.{FeedBuilder, Feed}
 
   setup_all do
     UserTestHelper.ddl()
@@ -32,7 +32,7 @@ defmodule FeedTest do
     end)
   end
 
-  test "retrieve empty feed", %{events: events} do
+  test "retrieve empty feed", %{events: _events} do
     tenant_id = :rand.uniform(1_000_000_000)
     results = GenServer.call(Feed, {:index_for, %{tenant_id: tenant_id}})
     assert results.events == []

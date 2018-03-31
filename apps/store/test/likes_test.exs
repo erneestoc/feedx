@@ -1,6 +1,6 @@
 defmodule LikeTest do
   use ExUnit.Case
-  alias Store.{FeedRepo, SourceRepo, FeedBuilder, Likes}
+  alias Store.{FeedBuilder, Likes}
 
   setup_all do
     UserTestHelper.ddl()
@@ -55,8 +55,6 @@ defmodule LikeTest do
   end
 
   defp create_like(event, {user, _, _}) do
-    num = :rand.uniform(10)
-
     GenServer.call(
       Likes,
       {:create,

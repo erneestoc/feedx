@@ -1,7 +1,7 @@
 defmodule FeedBuilderTest do
   use ExUnit.Case
   doctest Store.FeedBuilder
-  alias Store.{FeedRepo, SourceRepo, FeedBuilder}
+  alias Store.{FeedBuilder}
 
   setup_all do
     UserTestHelper.ddl()
@@ -27,6 +27,6 @@ defmodule FeedBuilderTest do
     assert event2.content == "hello"
   end
 
-  test "delete event", %{events: events} do
+  test "delete event", %{events: _events} do
   end
 end

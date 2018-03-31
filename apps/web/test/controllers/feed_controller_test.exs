@@ -18,7 +18,7 @@ defmodule Web.FeedControllerTest do
   test "retrieve feed for", %{events: events, conn: conn} do
     event = List.first(events)
     tenant_id = event.tenant_id
-    conn = get conn, feed_path(conn, :tenant_index, event.tenant_id)
+    conn = get conn, feed_path(conn, :tenant_index, tenant_id)
     response = json_response(conn, 200)
     assert is_list(response["events"])
     assert length(response["events"]) > 0

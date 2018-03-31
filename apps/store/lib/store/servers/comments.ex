@@ -140,7 +140,7 @@ defmodule Store.Comments do
     {:ok, comment}
   end
 
-  defp emit(result), do: result
+  defp emit(result, _), do: result
 
   defp update(params) do
     comment_id = params["comment_id"] || params[:comment_id]

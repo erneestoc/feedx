@@ -1,7 +1,7 @@
 defmodule CommentsTest do
   use ExUnit.Case
   doctest Store.Comments
-  alias Store.{FeedRepo, SourceRepo, FeedBuilder, Comments}
+  alias Store.{FeedBuilder, Comments}
 
   setup_all do
     UserTestHelper.ddl()
