@@ -93,5 +93,4 @@ defmodule Store.FeedBuilder do
   end
 
   defp emit(err, _), do: err
-
 end

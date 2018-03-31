@@ -1,7 +1,7 @@
-defmodule Store.Supervisor do
+defmodule Store.FeedSupervisor do
   @moduledoc false
   use Supervisor
-  alias Store.{UserSupervisor, InteractionsSupervisor, FeedSupervisor}
+  alias Store.{FeedRepo, FeedBuilder, Feed}
 
   def start_link do
     Supervisor.start_link(__MODULE__, [])
@@ -13,9 +13,9 @@ defmodule Store.Supervisor do
 
   defp children do
     [
-      supervisor(UserSupervisor, []),
-      supervisor(InteractionsSupervisor, []),
-      supervisor(FeedSupervisor, [])
+      supervisor(FeedRepo, []),
+      worker(FeedBuilder, [[], [name: FeedBuilder]]),
+      worker(Feed, [[], [name: Feed]])
     ]
   end
 end

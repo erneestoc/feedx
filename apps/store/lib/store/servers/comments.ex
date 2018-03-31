@@ -57,7 +57,7 @@ defmodule Store.Comments do
   end
 
   defp retrieve_hot_summary(event_id) do
-    ConCache.get(:user_cache, "#{event_id}c")
+    ConCache.get(:interactions_cache, "#{event_id}c")
   end
 
   defp retrieve_cold_summary(event_id) do
@@ -79,7 +79,7 @@ defmodule Store.Comments do
     comments = Repo.all(select_query)
     count = Repo.one(count_query)
     summary = %{count: count, comments: Enum.map(comments, &render/1)}
-    ConCache.put(:user_cache, "#{event_id}c", summary)
+    ConCache.put(:interactions_cache, "#{event_id}c", summary)
     summary
   end
 
@@ -126,7 +126,7 @@ defmodule Store.Comments do
           end
 
         cached = Map.put(cached, :comments, comments ++ [comment])
-        ConCache.put(:user_cache, "#{comment.event_id}c", cached)
+        ConCache.put(:interactions_cache, "#{comment.event_id}c", cached)
     end
 
     {:ok, comment}
@@ -145,7 +145,8 @@ defmodule Store.Comments do
   defp update(params) do
     comment_id = params["comment_id"] || params[:comment_id]
     comment = Repo.get_by(Comment, id: comment_id)
-    ConCache.delete(:user_cache, "#{comment.event_id}c")
+    ConCache.delete(:interactions_cache, "#{comment.event_id}c")
+
     comment
     |> Comment.changeset(params)
     |> Repo.insert()
@@ -154,7 +155,7 @@ defmodule Store.Comments do
   defp delete(params) do
     comment_id = params["comment_id"] || params[:comment_id]
     comment = Repo.get_by(Comment, id: comment_id)
-    ConCache.delete(:user_cache, "#{comment.event_id}c")
+    ConCache.delete(:interactions_cache, "#{comment.event_id}c")
     Repo.delete(comment)
   end
 end

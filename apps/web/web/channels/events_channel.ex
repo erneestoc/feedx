@@ -1,4 +1,5 @@
 defmodule Web.EventsChannel do
+  @moduledoc false
   use Phoenix.Channel
   require Logger
 
@@ -17,7 +18,7 @@ defmodule Web.EventsChannel do
   end
 
   def terminate(reason, _socket) do
-    Logger.debug "> leave #{inspect reason}"
+    Logger.debug fn -> "> leave #{inspect reason}" end
     :ok
   end
 
