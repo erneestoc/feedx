@@ -1,11 +1,11 @@
 # Feedx - WIP
 ---
 
-[![Build Status](https://travis-ci.org/erneestoc/trck.svg?branch=master)](https://travis-ci.org/erneestoc/trck)
+[![Build Status](https://travis-ci.org/erneestoc/feedx.svg?branch=master)](https://travis-ci.org/erneestoc/feedx)
 
 ---
 
-Generic feed adding social features to current applications. 
+Generic feed adding social features to current applications.
 
 ---
 

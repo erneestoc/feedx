@@ -31,6 +31,7 @@ defmodule Store.Comments do
   def handle_call({:create, params}, _from, state) do
     params
     |> create()
+    |> cache()
     |> send_result(state)
   end
 
@@ -41,7 +42,9 @@ defmodule Store.Comments do
   end
 
   def handle_call({:delete, params}, _from, state) do
-    send_result(nil, state)
+    params
+    |> delete()
+    |> send_result(state)
   end
 
   defp send_result(result, state), do: {:reply, result, state}
@@ -103,6 +106,25 @@ defmodule Store.Comments do
     |> Repo.insert()
   end
 
+  defp cache({:ok, comment}) do
+    case retrieve_hot_summary(comment.event_id) do
+      nil -> nil
+      cached -> 
+        cached = Map.put(cached, :count, cached.count + 1)
+        comments = if length(cached.comments) >= 3 do
+          {_popped, comments_list} = List.pop(cached.comments, 0)
+          comments_list
+        else
+          cached.comments
+        end
+        cached = Map.put(cached, :comments, comments ++ comment)
+        ConCache.put(:user_cache, "#{comment.event_id}c", cached)
+    end
+    {:ok, comment}
+  end
+
+  defp cache(result), do: result
+
   defp update(params) do
     comment_id = params["comment_id"] || params[:comment_id]
     comment = Repo.get_by(Comment, id: comment_id)
@@ -110,5 +132,12 @@ defmodule Store.Comments do
     comment
     |> Comment.changeset(params)
     |> Repo.insert()
+  end
+
+  defp delete(params) do
+    comment_id = params["comment_id"] || params[:comment_id]
+    comment = Repo.get_by(Comment, id: comment_id)
+    ConCache.delete(:user_cache, "#{comment.event_id}c")
+    Repo.delete(comment)
   end
 end

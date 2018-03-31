@@ -41,20 +41,14 @@ defmodule Store.Likes do
   end
 
   def handle_call({:delete, params}, _from, state) do
-    send_result(nil, state)
+    params
+    |> delete()
+    |> send_result(state)
   end
 
   defp send_result(result, state), do: {:reply, result, state}
 
-  def get_preview(event_id, user_id \\ -1) do
-    retrieve_hot_preview(event_id, user_id) || retrieve_cold_preview(event_id, user_id)
-  end
-
-  defp retrieve_hot_preview(event_id, user_id) do
-    ConCache.get(:user_cache, "#{event_id}l#{user_id}")
-  end
-
-  defp retrieve_cold_preview(event_id, user_id) do
+  defp get_preview(event_id, user_id \\ -1) do
     select_query =
       from(
         l in Like,
@@ -67,7 +61,6 @@ defmodule Store.Likes do
       from(
         l in Like,
         where: l.event_id == ^event_id and l.user_id == ^user_id,
-        order_by: [asc: :inserted_at],
         limit: 1
       )
 
@@ -82,7 +75,6 @@ defmodule Store.Likes do
     count = Repo.one(count_query)
     you = Repo.all(you_query)
     summary = %{count: count, likers: Enum.map(likes, &render_user/1), you: you != []}
-    ConCache.put(:user_cache, "#{event_id}l#{user_id}", summary)
     summary
   end
 
@@ -102,8 +94,35 @@ defmodule Store.Likes do
   end
 
   defp create(params) do
-    %Like{}
-    |> Like.changeset(params)
-    |> Repo.insert()
+    user_id = params["user_id"] || params[:user_id]
+    event_id = params["event_id"] || params[:event_id]
+    you_query =
+      from(
+        l in Like,
+        where: l.event_id == ^event_id and l.user_id == ^user_id,
+        limit: 1
+      )
+    case Repo.one(you_query) do
+      nil ->
+        %Like{}
+        |> Like.changeset(params)
+        |> Repo.insert()
+      result -> result |> IO.inspect
+    end
+  end
+
+  defp delete(params) do
+    user_id = params["user_id"] || params[:user_id]
+    event_id = params["event_id"] || params[:event_id]
+    you_query =
+      from(
+        l in Like,
+        where: l.event_id == ^event_id and l.user_id == ^user_id,
+        limit: 1
+      )
+    like =
+      you_query
+      |> Repo.one!()
+    Repo.delete(like)
   end
 end

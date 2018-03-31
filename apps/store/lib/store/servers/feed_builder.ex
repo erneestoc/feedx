@@ -16,43 +16,43 @@ defmodule Store.FeedBuilder do
 
   defp types, do: Application.get_env(:backbone, :event_types)
 
-  def handle_call({:build, json}, _from, _state) do
-    json
+  def handle_call({:build, map}, _from, _state) do
+    map
     |> build
     |> send_result()
   end
 
-  def build(json) do
-    type = json["type"] || json[:type]
+  def build(map) do
+    type = map["type"] || map[:type]
 
     case type do
-      "create" -> create(json)
-      "update" -> update(json)
-      "delete" -> delete(json)
+      "create" -> create(map)
+      "update" -> update(map)
+      "delete" -> delete(map)
     end
   end
 
-  defp create(json) do
-    json
+  defp create(map) do
+    map
     |> validate()
     |> store()
     |> emit("create")
   end
 
-  defp update(json) do
-    json
+  defp update(map) do
+    map
     |> changeset()
     |> put()
     |> emit("update")
   end
 
-  defp delete(json) do
-    json
+  defp delete(map) do
+    map
     |> remove()
     |> emit("delete")
   end
 
-  defp validate(%{"event" => data} = json) do
+  defp validate(%{"event" => data} = map) do
     changeset = Event.changeset(%Event{}, data)
 
     if changeset.valid? do
@@ -62,7 +62,7 @@ defmodule Store.FeedBuilder do
     end
   end
 
-  defp changeset(%{"event" => data} = json) do
+  defp changeset(%{"event" => data} = map) do
     external_id = data["external_id"] || data[:external_id]
     query = from(e in Event, where: e.external_id == ^external_id)
     event = FeedRepo.one!(query)
@@ -75,7 +75,7 @@ defmodule Store.FeedBuilder do
     end
   end
 
-  defp remove(%{"event" => data} = json) do
+  defp remove(%{"event" => data} = map) do
     external_id = data["external_id"] || data[:external_id]
     query = from(e in Event, where: e.external_id == ^external_id)
     event = FeedRepo.one!(query)
