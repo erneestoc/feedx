@@ -77,7 +77,7 @@ defmodule Store.FeedBuilder do
     external_id = data["external_id"] || data[:external_id]
     query = from(e in Event, where: e.external_id == ^external_id)
     event = FeedRepo.one!(query)
-    Repo.delete(event)
+    FeedRepo.delete(event)
   end
 
   defp store({:ok, event}), do: FeedRepo.insert(event)

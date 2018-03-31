@@ -116,7 +116,7 @@ defmodule Store.Comments do
 
         comments =
           if length(cached.comments) >= 3 do
-            {_popped, comments_list} = List.pop(cached.comments, 0)
+            {_popped, comments_list} = List.pop_at(cached.comments, 0)
             comments_list
           else
             cached.comments
