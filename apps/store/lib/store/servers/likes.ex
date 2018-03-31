@@ -96,33 +96,40 @@ defmodule Store.Likes do
   defp create(params) do
     user_id = params["user_id"] || params[:user_id]
     event_id = params["event_id"] || params[:event_id]
+
     you_query =
       from(
         l in Like,
         where: l.event_id == ^event_id and l.user_id == ^user_id,
         limit: 1
       )
+
     case Repo.one(you_query) do
       nil ->
         %Like{}
         |> Like.changeset(params)
         |> Repo.insert()
-      result -> result |> IO.inspect
+
+      result ->
+        result
     end
   end
 
   defp delete(params) do
     user_id = params["user_id"] || params[:user_id]
     event_id = params["event_id"] || params[:event_id]
+
     you_query =
       from(
         l in Like,
         where: l.event_id == ^event_id and l.user_id == ^user_id,
         limit: 1
       )
+
     like =
       you_query
       |> Repo.one!()
+
     Repo.delete(like)
   end
 end

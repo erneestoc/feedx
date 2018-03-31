@@ -108,18 +108,24 @@ defmodule Store.Comments do
 
   defp cache({:ok, comment}) do
     case retrieve_hot_summary(comment.event_id) do
-      nil -> nil
-      cached -> 
+      nil ->
+        nil
+
+      cached ->
         cached = Map.put(cached, :count, cached.count + 1)
-        comments = if length(cached.comments) >= 3 do
-          {_popped, comments_list} = List.pop(cached.comments, 0)
-          comments_list
-        else
-          cached.comments
-        end
+
+        comments =
+          if length(cached.comments) >= 3 do
+            {_popped, comments_list} = List.pop(cached.comments, 0)
+            comments_list
+          else
+            cached.comments
+          end
+
         cached = Map.put(cached, :comments, comments ++ comment)
         ConCache.put(:user_cache, "#{comment.event_id}c", cached)
     end
+
     {:ok, comment}
   end
 

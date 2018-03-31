@@ -3,3 +3,19 @@ elixir:
   - 1.6.0
 otp_release:
   - 20.3
+services:
+  - rabbitmq
+  - postgres
+  - mysql
+before_script:
+  - rm apps/store/config/test.exs
+  - cp apps/store/config/test.exs.travis apps/store/config/test.exs
+script:
+  - mix deps.get
+  - MIX_ENV=test mix do compile --warnings-as-errors
+  - mix credo --strict
+  - MIX_ENV=test mix ecto.create --repo Store.FeedRepo
+  - MIX_ENV=test mix ecto.create --repo Store.SourceRepo
+  - MIX_ENV=test mix ecto.migrate --repo Store.FeedRepo
+  - MIX_ENV=test mix ecto.migrate --repo Store.SourceRepo
+  - MIX_ENV=test mix test

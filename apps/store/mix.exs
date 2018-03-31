@@ -27,6 +27,7 @@ defmodule Store.MixProject do
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
+      {:mariaex, "~> 0.8.2"},
       {:ecto, "~> 2.1"},
       {:con_cache, "~> 0.12.1"},
       {:poison, "~> 3.1"},
