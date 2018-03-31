@@ -2,7 +2,7 @@ defmodule Store.Likes do
   @moduledoc false
   use GenServer
   import Ecto.Query, only: [from: 2]
-  alias Store.{Users, Comment, Like}
+  alias Store.{Users, Like}
   alias Store.FeedRepo, as: Repo
 
   def start_link(_, opts) do

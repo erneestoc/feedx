@@ -14,8 +14,6 @@ defmodule Store.FeedBuilder do
 
   defp send_result(result), do: {:reply, result, %{}}
 
-  defp types, do: Application.get_env(:backbone, :event_types)
-
   def handle_call({:build, map}, _from, _state) do
     map
     |> build
@@ -52,7 +50,7 @@ defmodule Store.FeedBuilder do
     |> emit("delete")
   end
 
-  defp validate(%{"event" => data} = map) do
+  defp validate(%{"event" => data}) do
     changeset = Event.changeset(%Event{}, data)
 
     if changeset.valid? do
@@ -62,7 +60,7 @@ defmodule Store.FeedBuilder do
     end
   end
 
-  defp changeset(%{"event" => data} = map) do
+  defp changeset(%{"event" => data}) do
     external_id = data["external_id"] || data[:external_id]
     query = from(e in Event, where: e.external_id == ^external_id)
     event = FeedRepo.one!(query)
@@ -75,7 +73,7 @@ defmodule Store.FeedBuilder do
     end
   end
 
-  defp remove(%{"event" => data} = map) do
+  defp remove(%{"event" => data}) do
     external_id = data["external_id"] || data[:external_id]
     query = from(e in Event, where: e.external_id == ^external_id)
     event = FeedRepo.one!(query)
@@ -88,7 +86,7 @@ defmodule Store.FeedBuilder do
   defp put({:ok, event}), do: FeedRepo.update(event)
   defp put(err), do: err
 
-  defp emit({:ok, event}, event_type) do
+  defp emit({:ok, event}, _event_type) do
     {:ok, event}
   end
 

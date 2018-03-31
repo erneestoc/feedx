@@ -23,7 +23,7 @@ defmodule Store.Event do
     field(:tenant_id, :integer)
     field(:content, :string)
     field(:data, :map)
-    field(:date, Ecto.DateTime)
+    field(:date, :naive_datetime)
 
     timestamps()
   end
