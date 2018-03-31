@@ -1,11 +1,15 @@
 defmodule UserTestHelper do
+  alias Ecto.Adapters.SQL
+  alias Store.SourceRepo
+  alias Faker.{Name, Internet}
+
   def table, do: Application.get_env(:store, :external_db_table_name)
   def user_id, do: Application.get_env(:store, :external_db_user_id)
   def first_name, do: Application.get_env(:store, :external_db_full_name)
   def profile_pic, do: Application.get_env(:store, :external_db_profile_pic)
 
   def ddl do
-    Ecto.Adapters.SQL.query!(Store.SourceRepo, ddl_query(), [])
+    SQL.query!(SourceRepo, ddl_query(), [])
   end
 
   defp ddl_query do
@@ -20,9 +24,9 @@ defmodule UserTestHelper do
 
   def generate_user do
     id = :rand.uniform(1_000_000_000)
-    name = Faker.Name.first_name()
-    pic = Faker.Internet.image_url()
-    Ecto.Adapters.SQL.query!(Store.SourceRepo, user_query(id, name, pic), [])
+    name = Name.first_name()
+    pic = Internet.image_url()
+    SQL.query!(SourceRepo, user_query(id, name, pic), [])
     {id, name, pic}
   end
 

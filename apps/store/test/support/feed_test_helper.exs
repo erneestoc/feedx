@@ -1,4 +1,6 @@
 defmodule FeedTestHelper do
+  alias Faker.Lorem
+
   def create(num \\ 1_000) do
     users = create_10_users
 
@@ -25,7 +27,7 @@ defmodule FeedTestHelper do
         "external_id" => :rand.uniform(1_000_000_000),
         "tenant_id" => Enum.at(companies, company_num),
         "user_id" => uid,
-        "content" => Faker.Lorem.paragraph(),
+        "content" => Lorem.paragraph(),
         "data" => %{},
         "date" => fake_date()
       },

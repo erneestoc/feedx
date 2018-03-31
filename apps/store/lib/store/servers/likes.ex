@@ -74,7 +74,11 @@ defmodule Store.Likes do
     likes = Repo.all(select_query)
     count = Repo.one(count_query)
     you = Repo.all(you_query)
-    summary = %{count: count, likers: Enum.map(likes, &render_user/1), you: you != []}
+    summary = %{
+      count: count,
+      likers: Enum.map(likes, &render_user/1),
+      you: you != []
+    }
     summary
   end
 

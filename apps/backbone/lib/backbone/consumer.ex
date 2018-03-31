@@ -35,7 +35,8 @@ defmodule Backbone.Consumer do
     {:noreply, chan}
   end
 
-  # Sent by the broker when the consumer is unexpectedly cancelled (such as after a queue deletion)
+  # Sent by the broker when the consumer is
+  # unexpectedly cancelled (such as after a queue deletion)
   def handle_info({:basic_cancel, %{consumer_tag: consumer_tag}}, chan) do
     {:stop, :normal, chan}
   end
@@ -53,7 +54,8 @@ defmodule Backbone.Consumer do
   defp setup_queue(chan) do
     {:ok, _} = Queue.declare(chan, @queue_error, durable: true)
 
-    # Messages that cannot be delivered to any consumer in the main queue will be routed to the error queue
+    # Messages that cannot be delivered to any consumer in the
+    # main queue will be routed to the error queue
     {:ok, _} =
       Queue.declare(
         chan,

@@ -1,4 +1,5 @@
 defmodule Web.ConnCase do
+  alias Phoenix.ConnTest
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -31,6 +32,6 @@ defmodule Web.ConnCase do
 
     _ = tags
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    {:ok, conn: ConnTest.build_conn()}
   end
 end

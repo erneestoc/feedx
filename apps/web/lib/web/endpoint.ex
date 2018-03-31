@@ -2,7 +2,7 @@ defmodule Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :web
 
   socket "/ws/v1/feed", Web.FeedSocket
-  
+
   if code_reloading? do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
