@@ -72,7 +72,7 @@ defmodule Store.Feed do
       events
       |> Enum.map(&render_event/1)
 
-    %{events: events, last_date: last.inserted_at}
+    %{events: events, last_date: NaiveDateTime.diff(last.inserted_at, ~N[1970-01-01 00:00:00])}
   end
 
   defp render_event(event) do

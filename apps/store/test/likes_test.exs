@@ -15,13 +15,22 @@ defmodule LikeTest do
     assert preview.you == false
   end
 
-  test "get likes summary" do
+  test "get not liked 'likes' summary" do
     {:ok, event} = create_event()
     create_likes_for(event)
     preview = GenServer.call(Likes, {:preview, event.id})
     assert preview.count == 10
     assert length(preview.likers) == 3
     assert preview.you == false
+  end
+
+  test "get liked 'likes' summary" do
+    {:ok, event} = create_event()
+    {:ok, like} = List.last(create_likes_for(event))
+    preview = GenServer.call(Likes, {:preview, event.id, like.user_id})
+    assert preview.count == 10
+    assert length(preview.likers) == 3
+    assert preview.you == true
   end
 
   test "get all likers list" do

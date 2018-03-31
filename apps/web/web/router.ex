@@ -13,11 +13,11 @@ defmodule Web.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api/v1" do
+  scope "/api/v1", Web do
     pipe_through :api
 
     get "/feed", FeedController, :full_index
-    get "/feed/:tenant_id", FeedController, :tentant_index
+    get "/feed/:tenant_id", FeedController, :tenant_index
 
     get "/feed/:tenant_id/events/:event_id", EventController, :show
     get "/feed/:tenant_id/events/:event_id/like", EventController, :like
