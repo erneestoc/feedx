@@ -1,9 +1,7 @@
 defmodule Store.Broadcast do
   @moduledoc false
-  alias Web.Endpoint
 
   def event(type, id, payload) do
-    Endpoint.broadcast("events:#{id}", type, payload)
-    Endpoint.broadcast("events:all", type, payload)
+    GenServer.cast(:ws_broadcast, {:event, type, id, payload})
   end
 end

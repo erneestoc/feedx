@@ -1,13 +1,14 @@
 defmodule Web do
   @moduledoc false
   use Application
-  alias Web.Endpoint
+  alias Web.{Endpoint, Broadcast}
 
   def start(_type, _args) do
     import Supervisor.Spec
 
     children = [
       supervisor(Endpoint, []),
+      worker(Broadcast, [[], [name: :ws_broadcast]])
     ]
 
     opts = [strategy: :one_for_one, name: Web.Supervisor]

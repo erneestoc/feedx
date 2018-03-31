@@ -50,7 +50,7 @@ This is an OTP umbrella application, containing other 3 OTP applications within 
 
 ## Usage
 
-An app should post events to RabbitMQ with a given format, in order for this app to consume and process events to build the feed.
+An app should post events to RabbitMQ with a given format, in order for this app to consume and process events to build the feed. We can always shutdown AMQP, and feed the `Store.FeedBuilder` using [distributed erlang](http://erlang.org/doc/reference_manual/distributed.html), the API, or building some other mecanism.
 
 We support 3 kind of events. `create`, `update`, `delete`. In order for us to handle an `update` or `delete` correctly, we should have already processed the create. `udpate` wont work once the event is deleted.
 

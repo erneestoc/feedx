@@ -2,7 +2,6 @@ defmodule Bus.Consumer do
   @moduledoc false
   use GenServer
   use AMQP
-  alias Store.FeedBuilder
   require Logger
 
   @exchange "gen_server_test_exchange"
@@ -69,8 +68,7 @@ defmodule Bus.Consumer do
 
   defp consume(channel, tag, redelivered, payload) do
     json = Poison.decode!(payload)
-
-    case FeedBuilder.build(json) do
+    case GenServer.call(:feed_builder, {:build, json}) do
       {:ok, _built} ->
         Logger.debug(fn -> "[Bus.Consumer] - consume\\4 SUCCESS" end)
 

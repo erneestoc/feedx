@@ -14,7 +14,7 @@ defmodule Store.FeedSupervisor do
   defp children do
     [
       supervisor(FeedRepo, []),
-      worker(FeedBuilder, [[], [name: FeedBuilder]]),
+      worker(FeedBuilder, [[], [name: :feed_builder]]),
       worker(Feed, [[], [name: Feed]])
     ]
   end
