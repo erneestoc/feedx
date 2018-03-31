@@ -28,6 +28,6 @@ defmodule UsersTest do
     assert user2.profile_pic == user.profile_pic
 
     # first get more than X times slower (cache vs db)
-    assert tc1 / tc2 >= 2
+    assert tc1 > tc2
   end
 end
