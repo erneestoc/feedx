@@ -35,7 +35,7 @@ defmodule Store.Feed do
     Event
     |> where([e], e.tenant_id == ^tenant_id)
     |> add_time_constraints_for(params)
-    |> order_by([desc: :inserted_at])
+    |> order_by(desc: :inserted_at)
     |> limit([e], 20)
     |> Repo.all()
   end
@@ -43,7 +43,7 @@ defmodule Store.Feed do
   def index_all(params) do
     Event
     |> add_time_constraints_for(params)
-    |> order_by([desc: :inserted_at])
+    |> order_by(desc: :inserted_at)
     |> limit([e], 20)
     |> Repo.all()
   end
@@ -67,9 +67,11 @@ defmodule Store.Feed do
 
   defp formatting(events) do
     last = List.last(events)
-    events = 
+
+    events =
       events
       |> Enum.map(&render_event/1)
+
     %{events: events, last_date: last.inserted_at}
   end
 
@@ -79,5 +81,4 @@ defmodule Store.Feed do
     likes = GenServer.call(Likes, {:preview, event.id, event.user_id})
     %{event: event, user: user, comments: comments, likes: likes}
   end
-
 end

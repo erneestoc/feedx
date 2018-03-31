@@ -33,12 +33,13 @@ defmodule LikeTest do
 
   defp create_event do
     FeedTestHelper.create(1)
-    |> List.first
+    |> List.first()
     |> FeedBuilder.build()
   end
 
   defp create_likes_for(event) do
     users = FeedTestHelper.create_10_users()
+
     1..10
     |> Enum.map(fn _ -> create_like(event, users) end)
   end
@@ -46,10 +47,15 @@ defmodule LikeTest do
   defp create_like(event, users) do
     num = :rand.uniform(10)
     {user, _, _} = Enum.at(users, num)
-    GenServer.call(Likes, {:create, %{
-      user_id: user,
-      event_id: event.id,
-      tenant_id: 0
-    }})
+
+    GenServer.call(
+      Likes,
+      {:create,
+       %{
+         user_id: user,
+         event_id: event.id,
+         tenant_id: 0
+       }}
+    )
   end
 end

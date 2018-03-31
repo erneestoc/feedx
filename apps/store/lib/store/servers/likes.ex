@@ -4,6 +4,7 @@ defmodule Store.Likes do
   import Ecto.Query, only: [from: 2]
   alias Store.{Users, Comment, Like}
   alias Store.FeedRepo, as: Repo
+
   def start_link(_, opts) do
     GenServer.start_link(__MODULE__, :ok, opts)
   end
@@ -26,6 +27,7 @@ defmodule Store.Likes do
 
   def handle_call({:index, params}, _from, state) do
     event_id = params["event_id"] || params[:event_id]
+
     event_id
     |> get()
     |> Enum.map(&render_user/1)
@@ -53,17 +55,29 @@ defmodule Store.Likes do
   end
 
   defp retrieve_cold_preview(event_id, user_id) do
-    select_query = from l in Like,
-            where: l.event_id == ^event_id,
-            order_by: [asc: :inserted_at],
-            limit: 3
-    you_query = from l in Like,
-            where: l.event_id == ^event_id and l.user_id == ^user_id,
-            order_by: [asc: :inserted_at],
-            limit: 1
-    count_query = from l in Like,
-            where: l.event_id == ^event_id,
-            select: count(l.id)
+    select_query =
+      from(
+        l in Like,
+        where: l.event_id == ^event_id,
+        order_by: [asc: :inserted_at],
+        limit: 3
+      )
+
+    you_query =
+      from(
+        l in Like,
+        where: l.event_id == ^event_id and l.user_id == ^user_id,
+        order_by: [asc: :inserted_at],
+        limit: 1
+      )
+
+    count_query =
+      from(
+        l in Like,
+        where: l.event_id == ^event_id,
+        select: count(l.id)
+      )
+
     likes = Repo.all(select_query)
     count = Repo.one(count_query)
     you = Repo.all(you_query)
@@ -73,9 +87,13 @@ defmodule Store.Likes do
   end
 
   defp get(event_id) do
-    query = from c in Like,
-            where: c.event_id == ^event_id,
-            order_by: [asc: :inserted_at]
+    query =
+      from(
+        c in Like,
+        where: c.event_id == ^event_id,
+        order_by: [asc: :inserted_at]
+      )
+
     Repo.all(query)
   end
 

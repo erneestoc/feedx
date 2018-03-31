@@ -28,6 +28,5 @@ defmodule FeedBuilderTest do
   end
 
   test "delete event", %{events: events} do
-
   end
 end

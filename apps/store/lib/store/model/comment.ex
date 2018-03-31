@@ -5,9 +5,7 @@ defmodule Store.Comment do
 
   @params ~w(content event_id user_id)a
 
-  @derive {Poison.Encoder, only: [:content,
-                                  :user_id,
-                                  :event_id]}
+  @derive {Poison.Encoder, only: [:content, :user_id, :event_id]}
 
   schema "comments" do
     field(:content, :string)

@@ -5,11 +5,14 @@ defmodule FeedTest do
 
   setup_all do
     UserTestHelper.ddl()
-    events = FeedTestHelper.create(10)
+
+    events =
+      FeedTestHelper.create(10)
       |> Enum.map(fn params ->
         {:ok, event} = FeedBuilder.build(params)
         event
       end)
+
     %{events: events}
   end
 

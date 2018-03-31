@@ -4,6 +4,7 @@ defmodule Store.Comments do
   import Ecto.Query, only: [from: 2]
   alias Store.{Comment, Users}
   alias Store.FeedRepo, as: Repo
+
   def start_link(_, opts) do
     GenServer.start_link(__MODULE__, :ok, opts)
   end
@@ -20,6 +21,7 @@ defmodule Store.Comments do
 
   def handle_call({:index, params}, _from, state) do
     event_id = params["event_id"] || params[:event_id]
+
     event_id
     |> get()
     |> Enum.map(&render/1)
@@ -53,13 +55,21 @@ defmodule Store.Comments do
   end
 
   defp retrieve_cold_summary(event_id) do
-    select_query = from c in Comment,
-            where: c.event_id == ^event_id,
-            order_by: [asc: :inserted_at],
-            limit: 3
-    count_query = from c in Comment,
-            where: c.event_id == ^event_id,
-            select: count(c.id)
+    select_query =
+      from(
+        c in Comment,
+        where: c.event_id == ^event_id,
+        order_by: [asc: :inserted_at],
+        limit: 3
+      )
+
+    count_query =
+      from(
+        c in Comment,
+        where: c.event_id == ^event_id,
+        select: count(c.id)
+      )
+
     comments = Repo.all(select_query)
     count = Repo.one(count_query)
     summary = %{count: count, comments: Enum.map(comments, &render/1)}
@@ -68,14 +78,19 @@ defmodule Store.Comments do
   end
 
   defp get(event_id) do
-    query = from c in Comment,
-            where: c.event_id == ^event_id,
-            order_by: [asc: :inserted_at]
+    query =
+      from(
+        c in Comment,
+        where: c.event_id == ^event_id,
+        order_by: [asc: :inserted_at]
+      )
+
     Repo.all(query)
   end
 
   defp render(comment) do
     user = GenServer.call(Users, {:get, comment.user_id})
+
     %{
       user: user,
       comment: comment
@@ -90,7 +105,8 @@ defmodule Store.Comments do
 
   defp update(params) do
     comment_id = params["comment_id"] || params[:comment_id]
-    comment = Repo.get_by Comment, id: comment_id
+    comment = Repo.get_by(Comment, id: comment_id)
+
     comment
     |> Comment.changeset(params)
     |> Repo.insert()

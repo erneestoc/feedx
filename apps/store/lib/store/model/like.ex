@@ -5,9 +5,7 @@ defmodule Store.Like do
 
   @params ~w(user_id event_id tenant_id)a
 
-  @derive {Poison.Encoder, only: [:tenant_id,
-                                  :user_id,
-                                  :event_id]}
+  @derive {Poison.Encoder, only: [:tenant_id, :user_id, :event_id]}
 
   schema "likes" do
     field(:user_id, :integer)

@@ -24,6 +24,7 @@ defmodule Store.FeedBuilder do
 
   def build(json) do
     type = json["type"] || json[:type]
+
     case type do
       "create" -> create(json)
       "update" -> update(json)
@@ -53,6 +54,7 @@ defmodule Store.FeedBuilder do
 
   defp validate(%{"event" => data} = json) do
     changeset = Event.changeset(%Event{}, data)
+
     if changeset.valid? do
       {:ok, changeset}
     else
@@ -62,10 +64,10 @@ defmodule Store.FeedBuilder do
 
   defp changeset(%{"event" => data} = json) do
     external_id = data["external_id"] || data[:external_id]
-    query = from e in Event,
-      where: e.external_id == ^external_id
+    query = from(e in Event, where: e.external_id == ^external_id)
     event = FeedRepo.one!(query)
     changeset = Event.changeset(event, data)
+
     if changeset.valid? do
       {:ok, changeset}
     else
@@ -75,8 +77,7 @@ defmodule Store.FeedBuilder do
 
   defp remove(%{"event" => data} = json) do
     external_id = data["external_id"] || data[:external_id]
-    query = from e in Event,
-      where: e.external_id == ^external_id
+    query = from(e in Event, where: e.external_id == ^external_id)
     event = FeedRepo.one!(query)
     Repo.delete(event)
   end
@@ -88,7 +89,7 @@ defmodule Store.FeedBuilder do
   defp put(err), do: err
 
   defp emit({:ok, event}, event_type) do
-    IO.inspect "TODO: publish"
+    IO.inspect("TODO: publish")
     {:ok, event}
   end
 
