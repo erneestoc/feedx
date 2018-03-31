@@ -2,7 +2,7 @@ defmodule Store.Comments do
   @moduledoc false
   use GenServer
   import Ecto.Query, only: [from: 2]
-  alias Store.{Comment, Users}
+  alias Store.{Comment, Users, Broadcast}
   alias Store.FeedRepo, as: Repo
 
   def start_link(_, opts) do
@@ -32,18 +32,21 @@ defmodule Store.Comments do
     params
     |> create()
     |> cache()
+    |> emit("add_comment")
     |> send_result(state)
   end
 
   def handle_call({:update, params}, _from, state) do
     params
     |> update()
+    |> emit("update_comment")
     |> send_result(state)
   end
 
   def handle_call({:delete, params}, _from, state) do
     params
     |> delete()
+    |> emit("remove_comment")
     |> send_result(state)
   end
 
@@ -122,7 +125,7 @@ defmodule Store.Comments do
             cached.comments
           end
 
-        cached = Map.put(cached, :comments, comments ++ comment)
+        cached = Map.put(cached, :comments, comments ++ [comment])
         ConCache.put(:user_cache, "#{comment.event_id}c", cached)
     end
 
@@ -131,10 +134,18 @@ defmodule Store.Comments do
 
   defp cache(result), do: result
 
+  defp emit({:ok, comment}, event) do
+    payload = render(comment)
+    Broadcast.event(event, comment.event_id, payload)
+    {:ok, comment}
+  end
+
+  defp emit(result), do: result
+
   defp update(params) do
     comment_id = params["comment_id"] || params[:comment_id]
     comment = Repo.get_by(Comment, id: comment_id)
-
+    ConCache.delete(:user_cache, "#{comment.event_id}c")
     comment
     |> Comment.changeset(params)
     |> Repo.insert()

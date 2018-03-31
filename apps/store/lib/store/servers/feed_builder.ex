@@ -2,7 +2,7 @@ defmodule Store.FeedBuilder do
   @moduledoc false
   use GenServer
   import Ecto.Query, only: [from: 2]
-  alias Store.{FeedRepo, Event}
+  alias Store.{FeedRepo, Feed, Event, Broadcast}
 
   def start_link(_, opts) do
     GenServer.start_link(__MODULE__, :ok, opts)
@@ -86,9 +86,12 @@ defmodule Store.FeedBuilder do
   defp put({:ok, event}), do: FeedRepo.update(event)
   defp put(err), do: err
 
-  defp emit({:ok, event}, _event_type) do
+  defp emit({:ok, event}, event_type) do
+    event_payload = Feed.render_event(event)
+    Broadcast.event(event_type, event.id, event_payload)
     {:ok, event}
   end
 
   defp emit(err, _), do: err
+
 end

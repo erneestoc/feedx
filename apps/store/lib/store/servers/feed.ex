@@ -78,7 +78,7 @@ defmodule Store.Feed do
     }
   end
 
-  defp render_event(event) do
+  def render_event(event) do
     user = GenServer.call(Users, {:get, event.user_id})
     comments = GenServer.call(Comments, {:preview, event.id})
     likes = GenServer.call(Likes, {:preview, event.id, event.user_id})
