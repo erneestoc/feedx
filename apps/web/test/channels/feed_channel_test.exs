@@ -17,7 +17,7 @@ defmodule Web.EventsChannelTest do
   end
 
   test "broadcast update event to all", %{events: events} do
-    {:ok, _, socket} =
+    {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(EventsChannel, "events:all")
     {event, _} = List.first(events)
@@ -28,7 +28,7 @@ defmodule Web.EventsChannelTest do
 
   test "broadcast update event to one", %{events: events} do
     {map, event} = Enum.at(events, 1)
-    {:ok, _, socket} =
+    {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(EventsChannel, "events:#{event.id}")
     map = Map.put(map, "type", "update")
@@ -39,7 +39,7 @@ defmodule Web.EventsChannelTest do
   test "event not received on wrong channel", %{events: events} do
     {map, event} = Enum.at(events, 2)
     {_, event2} = Enum.at(events, 3)
-    {:ok, _, socket} =
+    {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(EventsChannel, "events:#{event2.id}")
     map = Map.put(map, "type", "update")
@@ -49,7 +49,7 @@ defmodule Web.EventsChannelTest do
 
   test "delete event broadcast", %{events: events} do
     {map, event} = Enum.at(events, 4)
-    {:ok, _, socket} =
+    {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(EventsChannel, "events:#{event.id}")
     map = Map.put(map, "type", "delete")
@@ -59,7 +59,7 @@ defmodule Web.EventsChannelTest do
 
   test "receive comment broadcast for event", %{events: events} do
     {map, event} = Enum.at(events, 5)
-    {:ok, _, socket} =
+    {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(EventsChannel, "events:#{event.id}")
     GenServer.call(Comments, {:create, %{user_id: event.user_id,
@@ -71,7 +71,7 @@ defmodule Web.EventsChannelTest do
 
   test "receive comment delete for event", %{events: events} do
     {map, event} = Enum.at(events, 5)
-    {:ok, _, socket} =
+    {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(EventsChannel, "events:#{event.id}")
     GenServer.call(Comments, {:create, %{user_id: event.user_id,
@@ -85,7 +85,7 @@ defmodule Web.EventsChannelTest do
 
   test "broadcast like", %{events: events} do
     {map, event} = Enum.at(events, 1)
-    {:ok, _, socket} =
+    {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(EventsChannel, "events:#{event.id}")
     map = Map.put(map, "type", "update")
