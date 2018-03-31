@@ -1,0 +1,156 @@
+2018-03-27 20:24:40.421 [error] <0.190.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.195.0> exit with reason normal in context child_terminated
+2018-03-27 20:24:40.464 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:24:40.471 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:24:40.475 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:24:40.485 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:24:40.491 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:24:40.493 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:24:40.493 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:24:40.499 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:24:40.499 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:24:40.499 [info] <0.33.0> Application backbone started on node nonode@nohost
+2018-03-27 20:25:12.577 [error] <0.172.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.177.0> exit with reason normal in context child_terminated
+2018-03-27 20:25:12.620 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:25:12.627 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:25:12.629 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:25:12.635 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:25:12.636 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:25:12.638 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:25:12.638 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:25:12.650 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:25:12.650 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:25:12.650 [info] <0.33.0> Application backbone started on node nonode@nohost
+2018-03-27 20:25:33.292 [error] <0.177.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.182.0> exit with reason normal in context child_terminated
+2018-03-27 20:25:33.343 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:25:33.350 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:25:33.353 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:25:33.359 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:25:33.360 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:25:33.362 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:25:33.362 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:25:33.373 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:25:33.374 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:25:33.374 [info] <0.33.0> Application backbone started on node nonode@nohost
+2018-03-27 20:25:52.007 [error] <0.172.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.177.0> exit with reason normal in context child_terminated
+2018-03-27 20:25:52.054 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:25:52.063 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:25:52.067 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:25:52.074 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:25:52.076 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:25:52.078 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:25:52.078 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:25:52.085 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:25:52.085 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:25:52.086 [info] <0.33.0> Application backbone started on node nonode@nohost
+2018-03-27 20:28:59.387 [error] <0.210.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.215.0> exit with reason normal in context child_terminated
+2018-03-27 20:28:59.435 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:28:59.440 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:28:59.442 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:28:59.447 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:28:59.449 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:28:59.450 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:28:59.451 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:28:59.459 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:28:59.459 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:28:59.555 [error] <0.281.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 CRASH REPORT Process <0.281.0> with 0 neighbours crashed with reason: bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185
+2018-03-27 20:28:59.556 [error] <0.278.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 Supervisor {<0.278.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.8408>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.280.0>, {<<"client 127.0.0.1:60444 -> 127.0.0.1:5672">>,1}) at <0.281.0> exit with reason bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185 in context child_terminated
+2018-03-27 20:28:59.556 [error] <0.278.0> Supervisor {<0.278.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.8408>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.280.0>, {<<"client 127.0.0.1:60444 -> 127.0.0.1:5672">>,1}) at <0.281.0> exit with reason reached_max_restart_intensity in context shutdown
+2018-03-27 20:28:59.556 [error] <0.265.0> Supervisor {<0.265.0>,'Elixir.Backbone.Supervisor'} had child 'Elixir.Backbone.Consumer' started with 'Elixir.Backbone.Consumer':start_link([], [{name,'Elixir.Backbone.Consumer'}]) at undefined exit with reason {shutdown,{gen_server,call,[<0.280.0>,{call,{'queue.declare',0,nil,false,true,false,false,false,[]},none,<0.266.0>},60000]}} in context start_error
+2018-03-27 20:28:59.556 [error] <0.263.0> CRASH REPORT Process <0.263.0> with 0 neighbours exited with reason: {{shutdown,{failed_to_start_child,'Elixir.Backbone.Consumer',{shutdown,{gen_server,call,[<0.280.0>,{call,{'queue.declare',0,nil,false,true,false,false,false,[]},none,<0.266.0>},60000]}}}},{'Elixir.Backbone.Application',start,[normal,[]]}} in application_master:init/4 line 134
+2018-03-27 20:35:56.229 [error] <0.172.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.177.0> exit with reason normal in context child_terminated
+2018-03-27 20:35:56.278 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:35:56.283 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:35:56.286 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:35:56.296 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:35:56.303 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:35:56.309 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:35:56.309 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:35:56.316 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:35:56.316 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:35:56.414 [error] <0.243.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 CRASH REPORT Process <0.243.0> with 0 neighbours crashed with reason: bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185
+2018-03-27 20:35:56.415 [error] <0.240.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 Supervisor {<0.240.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.5748>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.242.0>, {<<"client 127.0.0.1:60975 -> 127.0.0.1:5672">>,1}) at <0.243.0> exit with reason bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185 in context child_terminated
+2018-03-27 20:35:56.415 [error] <0.240.0> Supervisor {<0.240.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.5748>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.242.0>, {<<"client 127.0.0.1:60975 -> 127.0.0.1:5672">>,1}) at <0.243.0> exit with reason reached_max_restart_intensity in context shutdown
+2018-03-27 20:35:56.415 [error] <0.227.0> Supervisor {<0.227.0>,'Elixir.Backbone.Supervisor'} had child 'Elixir.Backbone.Consumer' started with 'Elixir.Backbone.Consumer':start_link([], [{name,'Elixir.Backbone.Consumer'}]) at undefined exit with reason {shutdown,{gen_server,call,[<0.242.0>,{call,{'queue.declare',0,nil,false,true,false,false,false,[]},none,<0.228.0>},60000]}} in context start_error
+2018-03-27 20:35:56.415 [error] <0.225.0> CRASH REPORT Process <0.225.0> with 0 neighbours exited with reason: {{shutdown,{failed_to_start_child,'Elixir.Backbone.Consumer',{shutdown,{gen_server,call,[<0.242.0>,{call,{'queue.declare',0,nil,false,true,false,false,false,[]},none,<0.228.0>},60000]}}}},{'Elixir.Backbone.Application',start,[normal,[]]}} in application_master:init/4 line 134
+2018-03-27 20:35:56.543 [info] <0.33.0> Application backbone exited with reason: {{shutdown,{failed_to_start_child,'Elixir.Backbone.Consumer',{shutdown,{gen_server,call,[<0.242.0>,{call,{'queue.declare',0,nil,false,true,false,false,false,[]},none,<0.228.0>},60000]}}}},{'Elixir.Backbone.Application',start,[normal,[]]}}
+2018-03-27 20:36:30.356 [error] <0.172.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.177.0> exit with reason normal in context child_terminated
+2018-03-27 20:36:30.399 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:36:30.404 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:36:30.406 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:36:30.414 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:36:30.416 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:36:30.417 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:36:30.418 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:36:30.427 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:36:30.427 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:36:30.543 [error] <0.243.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 CRASH REPORT Process <0.243.0> with 0 neighbours crashed with reason: bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185
+2018-03-27 20:36:30.544 [error] <0.240.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 Supervisor {<0.240.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.5748>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.242.0>, {<<"client 127.0.0.1:61003 -> 127.0.0.1:5672">>,1}) at <0.243.0> exit with reason bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185 in context child_terminated
+2018-03-27 20:36:30.544 [error] <0.240.0> Supervisor {<0.240.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.5748>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.242.0>, {<<"client 127.0.0.1:61003 -> 127.0.0.1:5672">>,1}) at <0.243.0> exit with reason reached_max_restart_intensity in context shutdown
+2018-03-27 20:36:30.544 [error] <0.227.0> Supervisor {<0.227.0>,'Elixir.Backbone.Supervisor'} had child 'Elixir.Backbone.Consumer' started with 'Elixir.Backbone.Consumer':start_link([], [{name,'Elixir.Backbone.Consumer'}]) at undefined exit with reason {shutdown,{gen_server,call,[<0.242.0>,{call,{'queue.declare',0,nil,false,true,false,false,false,[]},none,<0.228.0>},60000]}} in context start_error
+2018-03-27 20:36:43.478 [error] <0.172.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.177.0> exit with reason normal in context child_terminated
+2018-03-27 20:36:43.521 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:36:43.527 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:36:43.530 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:36:43.535 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:36:43.537 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:36:43.538 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:36:43.539 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:36:43.548 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:36:43.548 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:36:43.641 [error] <0.243.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 CRASH REPORT Process <0.243.0> with 0 neighbours crashed with reason: bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185
+2018-03-27 20:36:43.642 [error] <0.240.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 Supervisor {<0.240.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.5748>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.242.0>, {<<"client 127.0.0.1:61015 -> 127.0.0.1:5672">>,1}) at <0.243.0> exit with reason bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185 in context child_terminated
+2018-03-27 20:36:43.642 [error] <0.240.0> Supervisor {<0.240.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.5748>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.242.0>, {<<"client 127.0.0.1:61015 -> 127.0.0.1:5672">>,1}) at <0.243.0> exit with reason reached_max_restart_intensity in context shutdown
+2018-03-27 20:36:58.996 [error] <0.172.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.177.0> exit with reason normal in context child_terminated
+2018-03-27 20:36:59.039 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:36:59.044 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:36:59.047 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:36:59.053 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:36:59.054 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:36:59.056 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:36:59.056 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:36:59.064 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:36:59.064 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:36:59.143 [error] <0.243.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 CRASH REPORT Process <0.243.0> with 0 neighbours crashed with reason: bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185
+2018-03-27 20:36:59.143 [error] <0.240.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 Supervisor {<0.240.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.5748>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.242.0>, {<<"client 127.0.0.1:61030 -> 127.0.0.1:5672">>,1}) at <0.243.0> exit with reason bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185 in context child_terminated
+2018-03-27 20:36:59.143 [error] <0.240.0> Supervisor {<0.240.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.5748>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.242.0>, {<<"client 127.0.0.1:61030 -> 127.0.0.1:5672">>,1}) at <0.243.0> exit with reason reached_max_restart_intensity in context shutdown
+2018-03-27 20:36:59.144 [error] <0.227.0> Supervisor {<0.227.0>,'Elixir.Backbone.Supervisor'} had child 'Elixir.Backbone.Consumer' started with 'Elixir.Backbone.Consumer':start_link([], [{name,'Elixir.Backbone.Consumer'}]) at undefined exit with reason {shutdown,{gen_server,call,[<0.242.0>,{call,{'queue.declare',0,nil,false,true,false,false,false,[]},none,<0.228.0>},60000]}} in context start_error
+2018-03-27 20:36:59.144 [error] <0.225.0> CRASH REPORT Process <0.225.0> with 0 neighbours exited with reason: {{shutdown,{failed_to_start_child,'Elixir.Backbone.Consumer',{shutdown,{gen_server,call,[<0.242.0>,{call,{'queue.declare',0,nil,false,true,false,false,false,[]},none,<0.228.0>},60000]}}}},{'Elixir.Backbone.Application',start,[normal,[]]}} in application_master:init/4 line 134
+2018-03-27 20:36:59.268 [info] <0.33.0> Application backbone exited with reason: {{shutdown,{failed_to_start_child,'Elixir.Backbone.Consumer',{shutdown,{gen_server,call,[<0.242.0>,{call,{'queue.declare',0,nil,false,true,false,false,false,[]},none,<0.228.0>},60000]}}}},{'Elixir.Backbone.Application',start,[normal,[]]}}
+2018-03-27 20:37:38.757 [error] <0.172.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.177.0> exit with reason normal in context child_terminated
+2018-03-27 20:37:38.799 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:37:38.807 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:37:38.812 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:37:38.826 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:37:38.828 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:37:38.829 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:37:38.829 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:37:38.839 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:37:38.839 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:37:38.999 [error] <0.243.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 CRASH REPORT Process <0.243.0> with 0 neighbours crashed with reason: bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185
+2018-03-27 20:37:38.999 [error] <0.240.0>@rabbit_framing_amqp_0_9_1:shortstr_size:185 Supervisor {<0.240.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.5748>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.242.0>, {<<"client 127.0.0.1:61101 -> 127.0.0.1:5672">>,1}) at <0.243.0> exit with reason bad argument in call to erlang:size(nil) in rabbit_framing_amqp_0_9_1:shortstr_size/1 line 185 in context child_terminated
+2018-03-27 20:37:38.999 [error] <0.240.0> Supervisor {<0.240.0>,amqp_channel_sup} had child writer started with rabbit_writer:start_link(#Port<0.5748>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.242.0>, {<<"client 127.0.0.1:61101 -> 127.0.0.1:5672">>,1}) at <0.243.0> exit with reason reached_max_restart_intensity in context shutdown
+2018-03-27 20:37:38.999 [error] <0.227.0> Supervisor {<0.227.0>,'Elixir.Backbone.Supervisor'} had child 'Elixir.Backbone.Consumer' started with 'Elixir.Backbone.Consumer':start_link([], [{name,'Elixir.Backbone.Consumer'}]) at undefined exit with reason {shutdown,{gen_server,call,[<0.242.0>,{subscribe,{'basic.consume',0,nil,<<>>,false,false,false,false,[]},<0.244.0>},60000]}} in context start_error
+2018-03-27 20:37:38.999 [error] <0.225.0> CRASH REPORT Process <0.225.0> with 0 neighbours exited with reason: {{shutdown,{failed_to_start_child,'Elixir.Backbone.Consumer',{shutdown,{gen_server,call,[<0.242.0>,{subscribe,{'basic.consume',0,nil,<<>>,false,false,false,false,[]},<0.244.0>},60000]}}}},{'Elixir.Backbone.Application',start,[normal,[]]}} in application_master:init/4 line 134
+2018-03-27 20:37:39.126 [info] <0.33.0> Application backbone exited with reason: {{shutdown,{failed_to_start_child,'Elixir.Backbone.Consumer',{shutdown,{gen_server,call,[<0.242.0>,{subscribe,{'basic.consume',0,nil,<<>>,false,false,false,false,[]},<0.244.0>},60000]}}}},{'Elixir.Backbone.Application',start,[normal,[]]}}
+2018-03-27 20:38:04.977 [error] <0.172.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.177.0> exit with reason normal in context child_terminated
+2018-03-27 20:38:05.021 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:38:05.026 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:38:05.029 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:38:05.035 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:38:05.037 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:38:05.038 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:38:05.038 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:38:05.046 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:38:05.047 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:38:05.143 [info] <0.33.0> Application backbone started on node nonode@nohost
+2018-03-27 20:38:16.474 [error] <0.172.0> Supervisor 'Elixir.Logger.Supervisor' had child 'Elixir.Logger.ErrorHandler' started with 'Elixir.Logger.Watcher':start_link({error_logger,'Elixir.Logger.ErrorHandler',{true,false,500}}) at <0.177.0> exit with reason normal in context child_terminated
+2018-03-27 20:38:16.515 [info] <0.33.0> Application lager started on node nonode@nohost
+2018-03-27 20:38:16.520 [info] <0.33.0> Application xmerl started on node nonode@nohost
+2018-03-27 20:38:16.522 [info] <0.33.0> Application jsx started on node nonode@nohost
+2018-03-27 20:38:16.530 [info] <0.33.0> Application ranch started on node nonode@nohost
+2018-03-27 20:38:16.532 [info] <0.33.0> Application ranch_proxy_protocol started on node nonode@nohost
+2018-03-27 20:38:16.537 [info] <0.33.0> Application recon started on node nonode@nohost
+2018-03-27 20:38:16.538 [info] <0.33.0> Application rabbit_common started on node nonode@nohost
+2018-03-27 20:38:16.550 [info] <0.33.0> Application amqp_client started on node nonode@nohost
+2018-03-27 20:38:16.551 [info] <0.33.0> Application amqp started on node nonode@nohost
+2018-03-27 20:38:16.647 [info] <0.33.0> Application backbone started on node nonode@nohost
