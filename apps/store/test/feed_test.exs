@@ -17,14 +17,14 @@ defmodule FeedTest do
     event = List.first(events)
     tenant_id = event.tenant_id
     results = GenServer.call(Feed, {:index_for, %{tenant_id: event.tenant_id}})
-    
+
     assert is_list(results.events)
 
     assert is_number(List.first(results.events).comments.count)
-    assert is_list(List.first(results.events).comments.data)
+    assert is_list(List.first(results.events).comments.comments)
 
     Enum.map(results.events, fn event ->
-      assert event.tenant_id == tenant_id
+      assert event.event.tenant_id == tenant_id
     end)
   end
 

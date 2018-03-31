@@ -2,7 +2,7 @@ defmodule Store.Feed do
   @moduledoc false
   use GenServer
   import Ecto.Query, only: [where: 3, limit: 3, order_by: 2]
-  alias Store.Event
+  alias Store.{Event, Users, Comments, Likes}
   alias Store.FeedRepo, as: Repo
 
   def start_link(_, opts) do
@@ -74,7 +74,10 @@ defmodule Store.Feed do
   end
 
   defp render_event(event) do
-    event
+    user = GenServer.call(Users, {:get, event.user_id})
+    comments = GenServer.call(Comments, {:preview, event.id})
+    likes = GenServer.call(Likes, {:preview, event.id, event.user_id})
+    %{event: event, user: user, comments: comments, likes: likes}
   end
 
 end

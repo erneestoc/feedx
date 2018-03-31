@@ -1,7 +1,6 @@
 defmodule FeedTestHelper do
   def create(num \\ 1_000) do
-  	users = (0..10)
-      |> Enum.map(&create_user/1)
+  	users = create_10_users
     companies = (0..5)
       |> Enum.map(fn _ -> :rand.uniform(1_000_000_000) end)
     (0..num)
@@ -32,5 +31,10 @@ defmodule FeedTestHelper do
   defp fake_date do
   	datetime = DateTime.to_unix(DateTime.utc_now())
     datetime - :rand.uniform(31_556_952)
+  end
+
+  def create_10_users do
+    (0..10)
+    |> Enum.map(&create_user/1)
   end
 end

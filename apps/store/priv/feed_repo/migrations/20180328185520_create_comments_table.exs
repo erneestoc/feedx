@@ -5,6 +5,7 @@ defmodule Store.FeedRepo.Migrations.CreateCommentsTable do
   	create table(:comments) do
       add(:content, :string)
       add(:event_id, :integer)
+      add(:user_id, :integer)
       timestamps()
   	end
   end

@@ -2,7 +2,7 @@ defmodule Store.Comments do
   @moduledoc false
   use GenServer
   import Ecto.Query, only: [from: 2]
-  alias Store.Comment
+  alias Store.{Comment, Users}
   alias Store.FeedRepo, as: Repo
   def start_link(_, opts) do
     GenServer.start_link(__MODULE__, :ok, opts)
@@ -12,9 +12,9 @@ defmodule Store.Comments do
     {:ok, %{}}
   end
 
-  def handle_call({:summary, event_id}, _from, state) do
+  def handle_call({:preview, event_id}, _from, state) do
     event_id
-    |> get_summary()
+    |> get_preview()
     |> send_result(state)
   end
 
@@ -27,11 +27,15 @@ defmodule Store.Comments do
   end
 
   def handle_call({:create, params}, _from, state) do
-    send_result(nil, state)
+    params
+    |> create()
+    |> send_result(state)
   end
 
   def handle_call({:update, params}, _from, state) do
-    send_result(nil, state)
+    params
+    |> update()
+    |> send_result(state)
   end
 
   def handle_call({:delete, params}, _from, state) do
@@ -40,7 +44,7 @@ defmodule Store.Comments do
 
   defp send_result(result, state), do: {:reply, result, state}
 
-  def get_summary(event_id) do
+  def get_preview(event_id) do
     retrieve_hot_summary(event_id) || retrieve_cold_summary(event_id)
   end
 
@@ -76,5 +80,19 @@ defmodule Store.Comments do
       user: user,
       comment: comment
     }
+  end
+
+  defp create(params) do
+    %Comment{}
+    |> Comment.changeset(params)
+    |> Repo.insert()
+  end
+
+  defp update(params) do
+    comment_id = params["comment_id"] || params[:comment_id]
+    comment = Repo.get_by Comment, id: comment_id
+    comment
+    |> Comment.changeset(params)
+    |> Repo.insert()
   end
 end
