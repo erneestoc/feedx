@@ -25,14 +25,14 @@ RabbitMQ as event producer. This app consumes, stores, and serves. The goal is t
 This is an OTP umbrella application, containing other 3 OTP applications within the `apps` folder.
 
 ```
-/apps/backbone
+/apps/bus
 /apps/store
 /apps/web
 ```
 
-### backbone
+### bus
 
-- Backbone contains the RabbitMQ `Consumer` generic server, which responsibility is to store events into the feed.
+- `Bus` contains the RabbitMQ `Consumer` generic server, which responsibility is to store events into the feed.
 
 ### store
 
@@ -216,10 +216,10 @@ Subscribe for event changes @ `event:<id>`
 ## setup
 
 
-Change RabbitMQ config on `apps/backbone/config/{dev, test, prod}.exs`.
+Change RabbitMQ config on `apps/bus/config/{dev, test, prod}.exs`.
 
 ```
-config :backbone, :rabbitmq, "amqp://guest:guest@127.0.0.1"
+config :bus, :rabbitmq, "amqp://guest:guest@127.0.0.1"
 ```
 
 Change feed data store settings on `apps/store/config/{dev, test, prod}.exs`
