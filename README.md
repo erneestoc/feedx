@@ -9,19 +9,44 @@ Generic feed adding social features to current applications.
 
 ---
 
-RabbitMQ as event producer. This app consumes, stores, and serves. The goal is to create a plug-n-play social feed for existing applications. May be easy to consume events from other sources.
+* [Details](#details)
+* [Design](#design)
+* [Usage](#usage)
+* [Setup](#setup)
 
 ---
 
 ## Details
 
-This is a OTP umbrella application. Containing other 3 OTP applications within the `apps` folder.
+RabbitMQ as event producer. This app consumes, stores, and serves. The goal is to create a plug-n-play social feed for existing applications. May be easy to consume events from other sources.
+
+## Design
+
+This is an OTP umbrella application, containing other 3 OTP applications within the `apps` folder.
 
 ```
 /apps/backbone
 /apps/store
 /apps/web
 ```
+
+### backbone
+
+- Backbone contains the RabbitMQ `Consumer` generic server, which responsibility is to store events into the feed.
+
+### store
+
+- `FeedRepo` is the main data store for our feed. Can be backed by any [ecto's supported databases](https://github.com/elixir-ecto/ecto#usage).
+- `SourceRepo` contains a connection to other app database, in which user's are stored. We should be able to get user name, id, and profile pic from one table. The store app implements a simple caching using [con_cache](https://github.com/sasa1977/con_cache), so that we don't hit the `Source` database too much. The caching mecanisms and access to the database can be [configured](#setup), if we don't setup a TTL, each user will only be looked up once per app restart. (We can avoid apps restart using erlang's code hot swap 🙂)
+- `Feed` gen_server is the main API for consuming the feed.
+- `FeedBuilder` gen_server is an API for building up the feed.
+- `Users` gen_server retrieves and caches users given an id. Mostly accessed by the feed server.
+- `Comments` gen_server is an API for showing, creating, updating, and deleting comments.
+- `Likes` gen_server is an API for liking and unliking feed events.
+
+### web
+
+- The web project contains a json API and websockets for consuming and updating the feed. Uses [phoenix framework](http://phoenixframework.org/)
 
 ## Usage
 
@@ -187,21 +212,6 @@ Subscribe for event changes @ `event:<id>`
 }
 ```
 
-## backbone
-
-- Backbone contains the RabbitMQ `Consumer` generic server, which responsibility is to store events into the feed.
-- `FeedBuilder` helps the consumer process events.
-- `Feed` generic server interacts with the store to render needed json for the feed's events, comments, likes, and publish events to the web channels.
-
-## store
-
-- `FeedRepo` is the main data store for our feed. Can be backed by any [ecto's supported databases](https://github.com/elixir-ecto/ecto#usage).
-- `SourceRepo` contains a connection to other app database, in which user's are stored. We should be able to get user name, id, and profile pic from one table. [ecto's supported databases](https://github.com/elixir-ecto/ecto#usage)
-- `UserServer` retrieves and caches users given an id. Cache is backed by [con_cache](https://github.com/sasa1977/con_cache), which uses `ets` for fast querying. 
-
-## web
-
-- The web project is an [elixir phoenix](http://phoenixframework.org/) API.
 
 ## setup
 
@@ -239,6 +249,19 @@ config :store, :external_db_table_name, "tabla"
 config :store, :external_db_full_name, :full_name
 config :store, :external_db_user_id, :id
 config :store, :external_db_profile_pic, :image_url
+```
+
+Cache mecanism for users and other feed interactions can be customized. TTL is not active by default.
+
+```
+config :store, :user_cache,
+  ttl: true,
+  touch_on_read: true,
+  global_ttl: 20,
+  check_interval: 2
+
+config :store, :interactions_cache,
+  ttl: false
 ```
 
 ---
