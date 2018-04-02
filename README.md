@@ -264,6 +264,14 @@ config :store, :interactions_cache,
   ttl: false
 ```
 
+## TODO
+
+- Better docs
+- More tests
+- Generic authentication and authorization mecanism
+- Explore other ways of retrieving user's data.
+- Explore other ways of storing data. [Cassandra](https://github.com/blitzstudios/triton), [Riak](http://basho.com/products/), [Mnesia](http://erlang.org/doc/man/mnesia.html) 🤔
+
 ---
 
 [Easy deploy using edeliver](https://github.com/edeliver/edeliver)
