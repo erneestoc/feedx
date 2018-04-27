@@ -68,6 +68,7 @@ defmodule Bus.Consumer do
 
   defp consume(channel, tag, redelivered, payload) do
     json = Poison.decode!(payload)
+
     case GenServer.call(:feed_builder, {:build, json}) do
       {:ok, _built} ->
         Logger.debug(fn -> "[Bus.Consumer] - consume\\4 SUCCESS" end)

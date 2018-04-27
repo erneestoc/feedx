@@ -3,6 +3,7 @@ defmodule Store.FeedBuilder do
   use GenServer
   import Ecto.Query, only: [from: 2]
   alias Store.{FeedRepo, Feed, Event, Broadcast}
+  require Logger
 
   def start_link(_, opts) do
     GenServer.start_link(__MODULE__, :ok, opts)
@@ -22,55 +23,43 @@ defmodule Store.FeedBuilder do
 
   def build(map) do
     type = map["type"] || map[:type]
-
-    case type do
-      "create" -> create(map)
-      "update" -> update(map)
-      "delete" -> delete(map)
-    end
+    dispatch(type, map)
   end
 
-  defp create(map) do
+  defp dispatch("create" = type, map) do
     map
     |> validate()
     |> store()
-    |> emit("create")
+    |> emit(type)
   end
 
-  defp update(map) do
+  defp dispatch("update" = type, map) do
     map
     |> changeset()
     |> put()
-    |> emit("update")
+    |> emit(type)
   end
 
-  defp delete(map) do
+  defp dispatch("delete" = type, map) do
     map
     |> remove()
-    |> emit("delete")
+    |> emit(type)
+  end
+
+  defp dispatch(_, map) do
+    Logger.info(fn -> "[FeedBuilder] - Event not recognized" end)
+    Logger.info(fn -> "#{inspect(map)}" end)
   end
 
   defp validate(%{"event" => data}) do
-    changeset = Event.changeset(%Event{}, data)
-
-    if changeset.valid? do
-      {:ok, changeset}
-    else
-      {:error, changeset.errors}
-    end
+    Event.changeset(%Event{}, data)
   end
 
   defp changeset(%{"event" => data}) do
     external_id = data["external_id"] || data[:external_id]
     query = from(e in Event, where: e.external_id == ^external_id)
     event = FeedRepo.one!(query)
-    changeset = Event.changeset(event, data)
-
-    if changeset.valid? do
-      {:ok, changeset}
-    else
-      {:error, changeset.errors}
-    end
+    Event.changeset(event, data)
   end
 
   defp remove(%{"event" => data}) do
@@ -80,11 +69,11 @@ defmodule Store.FeedBuilder do
     FeedRepo.delete(event)
   end
 
-  defp store({:ok, event}), do: FeedRepo.insert(event)
-  defp store(err), do: err
+  defp store(%Ecto.Changeset{valid?: true} = changeset), do: FeedRepo.insert(changeset)
+  defp store(%Ecto.Changeset{valid?: false, errors: errors}), do: {:error, errors}
 
-  defp put({:ok, event}), do: FeedRepo.update(event)
-  defp put(err), do: err
+  defp put(%Ecto.Changeset{valid?: true} = changeset), do: FeedRepo.update(changeset)
+  defp put(%Ecto.Changeset{valid?: false, errors: errors}), do: {:error, errors}
 
   defp emit({:ok, event}, event_type) do
     event_payload = Feed.render_event(event)
