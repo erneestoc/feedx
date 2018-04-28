@@ -13,16 +13,7 @@ defmodule Feedx.MixProject do
         "coveralls.post": :test,
         "coveralls.html": :test
       ],
-      dialyzer: [
-        plt_add_apps: [:web, :store, :bus],
-        flags: [
-          :unmatched_returns,
-          :error_handling,
-          :race_conditions,
-          :no_opaque,
-          :underspecs
-        ]
-      ]
+      dialyzer: [plt_add_deps: :transitive]
     ]
   end
 
