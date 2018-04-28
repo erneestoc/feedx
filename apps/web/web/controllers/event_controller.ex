@@ -1,23 +1,35 @@
 defmodule Web.EventController do
   use Web.Web, :controller
-  alias Store.Feed
+  alias Store.Likes
 
-  def show(conn, params) do
-    Feed
-    |> GenServer.call({:show, params})
+  def index(conn, params) do
+    Likes
+    |> GenServer.call({:index, params})
     |> send_response(conn)
   end
 
   def like(conn, params) do
-    Feed
-    |> GenServer.call({:like, params})
+    Likes
+    |> GenServer.call({:create, params})
     |> send_response(conn)
   end
 
   def unlike(conn, params) do
-    Feed
-    |> GenServer.call({:unlike, params})
+    Likes
+    |> GenServer.call({:delete, params})
     |> send_response(conn)
+  end
+
+  defp send_response({:ok, result}, conn) do
+    conn
+    |> put_status(200)
+    |> json(result)
+  end
+
+  defp send_response({:error, reason}, conn) do
+    conn
+    |> put_status(500)
+    |> json(reason)
   end
 
   defp send_response(result, conn) do

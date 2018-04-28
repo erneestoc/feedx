@@ -132,10 +132,9 @@ defmodule Store.Likes do
         limit: 1
       )
 
-    like =
-      you_query
-      |> Repo.one!()
-
-    Repo.delete(like)
+    case Repo.one(you_query) do
+      nil -> {:ok, "Doesn't exist"}
+      like -> Repo.delete(like)
+    end
   end
 end
