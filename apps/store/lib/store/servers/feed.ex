@@ -1,7 +1,7 @@
 defmodule Store.Feed do
   @moduledoc false
   use GenServer
-  import Ecto.Query, only: [where: 3, limit: 3, order_by: 2]
+  import Ecto.Query, only: [where: 3, order_by: 2]
   alias Store.{Event, Users, Comments, Likes}
   alias Store.FeedRepo, as: Repo
 
@@ -60,8 +60,6 @@ defmodule Store.Feed do
   defp formatting(%{entries: [], metadata: metadata}), do: %{events: [], pagination: metadata}
 
   defp formatting(%{entries: events, metadata: metadata}) do
-    last = List.last(events)
-
     events =
       events
       |> Enum.map(&render_event/1)
