@@ -56,6 +56,7 @@ defmodule Store.FeedBuilder do
   defp validate_update(%{"event" => data}) do
     external_id = data["external_id"]
     query = from(e in Event, where: e.external_id == ^external_id)
+
     query
     |> FeedRepo.one!()
     |> Event.changeset(data)
@@ -64,6 +65,7 @@ defmodule Store.FeedBuilder do
   defp delete_event(%{"event" => data}) do
     external_id = data["external_id"]
     query = from(e in Event, where: e.external_id == ^external_id)
+
     query
     |> FeedRepo.one!()
     |> FeedRepo.delete()

@@ -20,7 +20,13 @@ defmodule Store.MixProject do
   def application do
     [
       mod: {Store, []},
-      extra_applications: [:logger, :ecto, :con_cache, :poison, :ecto_cursor_pagination]
+      extra_applications: [
+        :logger,
+        :ecto,
+        :con_cache,
+        :poison,
+        :ecto_cursor_pagination
+      ]
     ]
   end
 
