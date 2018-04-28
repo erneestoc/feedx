@@ -34,7 +34,7 @@ defmodule Store.MixProject do
     [
       {:postgrex, ">= 0.0.0"},
       {:mariaex, "~> 0.8.2"},
-      {:ecto, "~> 2.1"},
+      {:ecto, "~> 2.2.10"},
       {:con_cache, "~> 0.12.1"},
       {:poison, "~> 3.1"},
       {:faker, "~> 0.10", only: :test},
