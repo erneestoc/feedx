@@ -13,7 +13,10 @@ defmodule Feedx.MixProject do
         "coveralls.post": :test,
         "coveralls.html": :test
       ],
-      dialyzer: [plt_add_deps: :transitive]
+      dialyzer: [
+        plt_add_deps: true,
+        plt_file: ".local.plt"
+      ]
     ]
   end
 

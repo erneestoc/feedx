@@ -23,7 +23,7 @@ defmodule Web.Mixfile do
   def application do
     [
       mod: {Web, []},
-      extra_applications: [:logger]
+      extra_applications: [:logger, :plug]
     ]
   end
 
