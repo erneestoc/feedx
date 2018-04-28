@@ -46,10 +46,10 @@ defmodule LikeTest do
     {:ok, like} = create_like(event, user)
     preview = GenServer.call(Likes, {:preview, event.id, like.user_id})
     assert preview.count == 1
-    preview = GenServer.call(Likes, {:delete, %{"event_id" => event.id,
-      "user_id" => like.user_id
-      }
-    })
+
+    preview =
+      GenServer.call(Likes, {:delete, %{"event_id" => event.id, "user_id" => like.user_id}})
+
     preview = GenServer.call(Likes, {:preview, event.id, like.user_id})
     assert preview.count == 0
   end
