@@ -29,7 +29,7 @@ defmodule Feedx.MixProject do
     [
       {:credo, "~> 0.9.0-rc1", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
-      {:excoveralls, "~> 0.8", only: [:test]},
+      {:excoveralls, "~> 0.8.1", only: [:test]},
       {:edeliver, "~> 1.4.5"},
       {:distillery, "~> 1.0.0", warn_missing: false}
     ]

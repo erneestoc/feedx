@@ -11,7 +11,8 @@ defmodule Store.MixProject do
       lockfile: "../../mix.lock",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -19,7 +20,7 @@ defmodule Store.MixProject do
   def application do
     [
       mod: {Store, []},
-      extra_applications: [:logger, :ecto, :con_cache, :poison]
+      extra_applications: [:logger, :ecto, :con_cache, :poison, :ecto_cursor_pagination]
     ]
   end
 
@@ -31,7 +32,8 @@ defmodule Store.MixProject do
       {:ecto, "~> 2.1"},
       {:con_cache, "~> 0.12.1"},
       {:poison, "~> 3.1"},
-      {:faker, "~> 0.10", only: :test}
+      {:faker, "~> 0.10", only: :test},
+      {:ecto_cursor_pagination, "~> 0.1.1"}
     ]
   end
 end
