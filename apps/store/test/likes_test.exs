@@ -40,6 +40,15 @@ defmodule LikeTest do
     assert length(likers) == 11
   end
 
+  test "attempt to create 2 likes with the same user" do
+    user = UserTestHelper.generate_user()
+    {:ok, event} = create_event()
+    {:ok, _} = create_like(event, user)
+    {:ok, like} = create_like(event, user)
+    preview = GenServer.call(Likes, {:preview, event.id, like.user_id})
+    assert preview.count == 1
+  end
+
   test "create and delete like" do
     user = UserTestHelper.generate_user()
     {:ok, event} = create_event()

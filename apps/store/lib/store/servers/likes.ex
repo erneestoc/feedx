@@ -117,7 +117,7 @@ defmodule Store.Likes do
         |> Repo.insert()
 
       result ->
-        result
+        {:ok, result}
     end
   end
 
