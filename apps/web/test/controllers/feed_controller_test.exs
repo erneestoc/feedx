@@ -5,7 +5,7 @@ defmodule Web.FeedControllerTest do
     UserTestHelper.ddl()
 
     events =
-      10
+      35
       |> FeedTestHelper.create()
       |> Enum.map(fn params ->
         {:ok, event} = FeedBuilder.build(params)
@@ -23,4 +23,12 @@ defmodule Web.FeedControllerTest do
     assert is_list(response["events"])
     assert length(response["events"]) > 0
   end
+
+  test "retrieve global feed", %{conn: conn} do
+    conn = get conn, feed_path(conn, :full_index)
+    response = json_response(conn, 200)
+    assert is_list(response["events"])
+    assert length(response["events"]) == 30
+  end
+
 end
