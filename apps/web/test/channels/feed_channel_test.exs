@@ -62,9 +62,9 @@ defmodule Web.EventsChannelTest do
     {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(EventsChannel, "events:#{event.id}")
-    GenServer.call(Comments, {:create, %{user_id: event.user_id,
-      event_id: event.id,
-      content: "Hello world"
+    GenServer.call(Comments, {:create, %{"user_id" => event.user_id,
+      "event_id" => event.id,
+      "content" => "Hello world"
     }})
     assert_broadcast "add_comment", %{comment: _, user: _}
   end
@@ -74,12 +74,12 @@ defmodule Web.EventsChannelTest do
     {:ok, _, _socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(EventsChannel, "events:#{event.id}")
-    GenServer.call(Comments, {:create, %{user_id: event.user_id,
-      event_id: event.id,
-      content: "Hello world"
+    GenServer.call(Comments, {:create, %{"user_id" => event.user_id,
+      "event_id" => event.id,
+      "content" => "Hello world"
     }})
     assert_broadcast "add_comment", %{comment: comment, user: _}
-    GenServer.call(Comments, {:delete, %{comment_id: comment.id}})
+    GenServer.call(Comments, {:delete, %{"comment_id" => comment.id}})
     assert_broadcast "remove_comment", %{comment: _, user: _}
   end
 

@@ -20,7 +20,7 @@ defmodule FeedTest do
   test "retrieve feed for", %{events: events} do
     event = List.first(events)
     tenant_id = event.tenant_id
-    results = GenServer.call(Feed, {:index_for, %{tenant_id: event.tenant_id}})
+    results = GenServer.call(Feed, {:index_for, %{"tenant_id" => event.tenant_id}})
 
     assert is_list(results.events)
 
@@ -34,7 +34,7 @@ defmodule FeedTest do
 
   test "retrieve empty feed", %{events: _events} do
     tenant_id = :rand.uniform(1_000_000_000)
-    results = GenServer.call(Feed, {:index_for, %{tenant_id: tenant_id}})
+    results = GenServer.call(Feed, {:index_for, %{"tenant_id" => tenant_id}})
     assert results.events == []
     assert is_nil(results.last_date)
   end

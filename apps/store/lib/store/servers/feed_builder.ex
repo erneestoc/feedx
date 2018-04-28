@@ -13,8 +13,6 @@ defmodule Store.FeedBuilder do
     {:ok, %{}}
   end
 
-  defp send_result(result), do: {:reply, result, %{}}
-
   def handle_call({:build, map}, _from, _state) do
     map
     |> build
@@ -22,7 +20,7 @@ defmodule Store.FeedBuilder do
   end
 
   def build(map) do
-    type = map["type"] || map[:type]
+    type = map["type"]
     dispatch(type, map)
   end
 
@@ -56,14 +54,14 @@ defmodule Store.FeedBuilder do
   end
 
   defp changeset(%{"event" => data}) do
-    external_id = data["external_id"] || data[:external_id]
+    external_id = data["external_id"]
     query = from(e in Event, where: e.external_id == ^external_id)
     event = FeedRepo.one!(query)
     Event.changeset(event, data)
   end
 
   defp remove(%{"event" => data}) do
-    external_id = data["external_id"] || data[:external_id]
+    external_id = data["external_id"]
     query = from(e in Event, where: e.external_id == ^external_id)
     event = FeedRepo.one!(query)
     FeedRepo.delete(event)
@@ -82,4 +80,6 @@ defmodule Store.FeedBuilder do
   end
 
   defp emit(err, _), do: err
+
+  defp send_result(result), do: {:reply, result, %{}}
 end

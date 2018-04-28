@@ -20,7 +20,7 @@ defmodule Store.Comments do
   end
 
   def handle_call({:index, params}, _from, state) do
-    event_id = params["event_id"] || params[:event_id]
+    event_id = params["event_id"]
 
     event_id
     |> get()
@@ -143,7 +143,7 @@ defmodule Store.Comments do
   defp emit(result, _), do: result
 
   defp update(params) do
-    comment_id = params["comment_id"] || params[:comment_id]
+    comment_id = params["comment_id"]
     comment = Repo.get_by(Comment, id: comment_id)
     ConCache.delete(:interactions_cache, "#{comment.event_id}c")
 
@@ -153,7 +153,7 @@ defmodule Store.Comments do
   end
 
   defp delete(params) do
-    comment_id = params["comment_id"] || params[:comment_id]
+    comment_id = params["comment_id"]
     comment = Repo.get_by(Comment, id: comment_id)
     ConCache.delete(:interactions_cache, "#{comment.event_id}c")
     Repo.delete(comment)

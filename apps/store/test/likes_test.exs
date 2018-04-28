@@ -36,7 +36,7 @@ defmodule LikeTest do
   test "get all likers list" do
     {:ok, event} = create_event()
     create_likes_for(event)
-    likers = GenServer.call(Likes, {:index, %{event_id: event.id}})
+    likers = GenServer.call(Likes, {:index, %{"event_id" => event.id}})
     assert length(likers) == 11
   end
 
@@ -59,9 +59,9 @@ defmodule LikeTest do
       Likes,
       {:create,
        %{
-         user_id: user,
-         event_id: event.id,
-         tenant_id: 0
+         "user_id" => user,
+         "event_id" => event.id,
+         "tenant_id" => 0
        }}
     )
   end

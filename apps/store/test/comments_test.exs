@@ -37,7 +37,7 @@ defmodule CommentsTest do
     1..100
     |> Enum.map(fn _ -> create_comment(event, users) end)
 
-    comments = GenServer.call(Comments, {:index, %{event_id: event.id}})
+    comments = GenServer.call(Comments, {:index, %{"event_id" => event.id}})
     assert length(comments) == 100
   end
 
@@ -47,7 +47,7 @@ defmodule CommentsTest do
 
     GenServer.call(
       Comments,
-      {:create, %{event_id: event.id, user_id: user, content: "holamundo"}}
+      {:create, %{"event_id" => event.id, "user_id" => user, "content" => "holamundo"}}
     )
   end
 

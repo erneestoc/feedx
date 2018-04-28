@@ -30,7 +30,7 @@ defmodule Store.Feed do
   defp send_result(result, state), do: {:reply, result, state}
 
   def index_for(params) do
-    tenant_id = params["tenant_id"] || params[:tenant_id]
+    tenant_id = params["tenant_id"]
 
     Event
     |> where([e], e.tenant_id == ^tenant_id)

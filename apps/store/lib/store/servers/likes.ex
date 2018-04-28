@@ -26,7 +26,7 @@ defmodule Store.Likes do
   end
 
   def handle_call({:index, params}, _from, state) do
-    event_id = params["event_id"] || params[:event_id]
+    event_id = params["event_id"]
 
     event_id
     |> get()
@@ -100,8 +100,8 @@ defmodule Store.Likes do
   end
 
   defp create(params) do
-    user_id = params["user_id"] || params[:user_id]
-    event_id = params["event_id"] || params[:event_id]
+    user_id = params["user_id"]
+    event_id = params["event_id"]
 
     you_query =
       from(
@@ -122,8 +122,8 @@ defmodule Store.Likes do
   end
 
   defp delete(params) do
-    user_id = params["user_id"] || params[:user_id]
-    event_id = params["event_id"] || params[:event_id]
+    user_id = params["user_id"]
+    event_id = params["event_id"]
 
     you_query =
       from(
