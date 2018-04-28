@@ -67,18 +67,20 @@ defmodule Bus.Consumer do
     :ok = Exchange.fanout(chan, @exchange, durable: true)
     :ok = Queue.bind(chan, @queue, @exchange)
   end
-  @spec consume(Channel.t, String.t, boolean(), map()) :: :ok | error
+
+  @spec consume(Channel.t(), String.t(), boolean(), map()) :: :ok | error
   defp consume(channel, tag, redelivered, payload) do
     json = Poison.decode!(payload)
 
-    _ = case GenServer.call(:feed_builder, {:build, json}) do
-      {:ok, _built} ->
-        Logger.debug(fn -> "[Bus.Consumer] - consume\\4 SUCCESS" end)
+    _ =
+      case GenServer.call(:feed_builder, {:build, json}) do
+        {:ok, _built} ->
+          Logger.debug(fn -> "[Bus.Consumer] - consume\\4 SUCCESS" end)
 
-      _ ->
-        :ok = Basic.reject(channel, tag, requeue: false)
-        Logger.debug(fn -> "[Bus.Consumer] - consume\\4 FAIL REQUEUE" end)
-    end
+        _ ->
+          :ok = Basic.reject(channel, tag, requeue: false)
+          Logger.debug(fn -> "[Bus.Consumer] - consume\\4 FAIL REQUEUE" end)
+      end
 
     Basic.ack(channel, tag)
   rescue
