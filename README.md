@@ -1,5 +1,4 @@
-# Feedx - WIP
----
+# Feedx
 
 [![Build Status](https://travis-ci.org/erneestoc/feedx.svg?branch=master)](https://travis-ci.org/erneestoc/feedx)
 [![Coverage Status](https://coveralls.io/repos/github/erneestoc/feedx/badge.svg?branch=master)](https://coveralls.io/github/erneestoc/feedx?branch=master)

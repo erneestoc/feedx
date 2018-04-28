@@ -149,7 +149,7 @@ defmodule Store.Comments do
 
     comment
     |> Comment.changeset(params)
-    |> Repo.insert()
+    |> Repo.update()
   end
 
   defp delete(params) do

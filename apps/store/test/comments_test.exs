@@ -1,7 +1,7 @@
 defmodule CommentsTest do
   use ExUnit.Case
   doctest Store.Comments
-  alias Store.{FeedBuilder, Comments}
+  alias Store.{FeedBuilder, FeedRepo, Comments, Comment}
 
   setup_all do
     UserTestHelper.ddl()
@@ -41,13 +41,43 @@ defmodule CommentsTest do
     assert length(comments) == 100
   end
 
+  test "update comment" do
+    {user_id, _, _} = UserTestHelper.generate_user()
+    {:ok, event} = create_event()
+    {:ok, comment} = GenServer.call(
+      Comments,
+      {:create, %{"event_id" => event.id, "user_id" => user_id, "content" => "holamundo"}}
+    )
+    {:ok, _} = GenServer.call(
+      Comments,
+      {:update, %{"comment_id" => comment.id, "content" => "hola2"}}
+    )
+    comment = FeedRepo.get_by Comment, id: comment.id
+    assert comment.content == "hola2"
+  end
+
+  test "delete comment" do
+    {user_id, _, _} = UserTestHelper.generate_user()
+    {:ok, event} = create_event()
+    {:ok, comment} = GenServer.call(
+      Comments,
+      {:create, %{"event_id" => event.id, "user_id" => user_id, "content" => "holamundo"}}
+    )
+    {:ok, _} = GenServer.call(
+      Comments,
+      {:delete, %{"comment_id" => comment.id}}
+    )
+    comment = FeedRepo.get_by Comment, id: comment.id
+    assert comment == nil
+  end
+
   defp create_comment(event, users) do
     x = :rand.uniform(10)
-    {user, _, _} = Enum.at(users, x)
+    {user_id, _, _} = Enum.at(users, x)
 
     GenServer.call(
       Comments,
-      {:create, %{"event_id" => event.id, "user_id" => user, "content" => "holamundo"}}
+      {:create, %{"event_id" => event.id, "user_id" => user_id, "content" => "holamundo"}}
     )
   end
 
