@@ -36,16 +36,14 @@ defmodule Store.Feed do
     |> where([e], e.tenant_id == ^tenant_id)
     |> add_time_constraints_for(params)
     |> order_by(desc: :inserted_at)
-    |> limit([e], 20)
-    |> Repo.all()
+    |> Repo.paginate(cursor_fields: [:inserted_at, :id], limit: 30)
   end
 
   def index_all(params) do
     Event
     |> add_time_constraints_for(params)
     |> order_by(desc: :inserted_at)
-    |> limit([e], 20)
-    |> Repo.all()
+    |> Repo.paginate(cursor_fields: [:inserted_at, :id], limit: 30)
   end
 
   defp add_time_constraints_for(query, %{"after" => date}) do
@@ -59,9 +57,9 @@ defmodule Store.Feed do
     where(query, [e], e.created_at < ^date)
   end
 
-  defp formatting([]), do: %{events: [], last_date: nil}
+  defp formatting(%{entries: [], metadata: metadata}), do: %{events: [], last_param: metadata}
 
-  defp formatting(events) do
+  defp formatting(%{entries: events, metadata: metadata}) do
     last = List.last(events)
 
     events =
@@ -70,7 +68,7 @@ defmodule Store.Feed do
 
     %{
       events: events,
-      last_date: NaiveDateTime.diff(last.inserted_at, ~N[1970-01-01 00:00:00])
+      last_param: NaiveDateTime.diff(last.inserted_at, ~N[1970-01-01 00:00:00])
     }
   end
 

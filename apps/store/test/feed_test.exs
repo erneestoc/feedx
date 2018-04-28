@@ -36,6 +36,6 @@ defmodule FeedTest do
     tenant_id = :rand.uniform(1_000_000_000)
     results = GenServer.call(Feed, {:index_for, %{"tenant_id" => tenant_id}})
     assert results.events == []
-    assert is_nil(results.last_date)
+    assert is_nil(results.last_param.after)
   end
 end

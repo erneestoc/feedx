@@ -24,8 +24,7 @@ defmodule Store.MixProject do
         :logger,
         :ecto,
         :con_cache,
-        :poison,
-        :ecto_cursor_pagination
+        :poison
       ]
     ]
   end
@@ -39,7 +38,7 @@ defmodule Store.MixProject do
       {:con_cache, "~> 0.12.1"},
       {:poison, "~> 3.1"},
       {:faker, "~> 0.10", only: :test},
-      {:ecto_cursor_pagination, "~> 0.1.1"}
+      {:paginator, "~> 0.3"}
     ]
   end
 end
