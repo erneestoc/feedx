@@ -52,10 +52,6 @@ defmodule Store.Feed do
     add_time_constraints(query, date)
   end
 
-  defp add_time_constraints_for(query, %{after: date}) do
-    add_time_constraints(query, date)
-  end
-
   defp add_time_constraints_for(query, _), do: query
 
   defp add_time_constraints(query, date) do

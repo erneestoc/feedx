@@ -26,22 +26,22 @@ defmodule Store.FeedBuilder do
 
   defp dispatch("create" = type, map) do
     map
-    |> validate()
-    |> store()
-    |> emit(type)
+    |> new_changeset()
+    |> save_changeset()
+    |> publish_changes(type)
   end
 
   defp dispatch("update" = type, map) do
     map
-    |> changeset()
-    |> put()
-    |> emit(type)
+    |> validate_update()
+    |> update_changeset()
+    |> publish_changes(type)
   end
 
   defp dispatch("delete" = type, map) do
     map
-    |> remove()
-    |> emit(type)
+    |> delete_event()
+    |> publish_changes(type)
   end
 
   defp dispatch(_, map) do
@@ -49,37 +49,39 @@ defmodule Store.FeedBuilder do
     _ = Logger.info(fn -> "#{inspect(map)}" end)
   end
 
-  defp validate(%{"event" => data}) do
+  defp new_changeset(%{"event" => data}) do
     Event.changeset(%Event{}, data)
   end
 
-  defp changeset(%{"event" => data}) do
+  defp validate_update(%{"event" => data}) do
     external_id = data["external_id"]
     query = from(e in Event, where: e.external_id == ^external_id)
-    event = FeedRepo.one!(query)
-    Event.changeset(event, data)
+    query
+    |> FeedRepo.one!()
+    |> Event.changeset(data)
   end
 
-  defp remove(%{"event" => data}) do
+  defp delete_event(%{"event" => data}) do
     external_id = data["external_id"]
     query = from(e in Event, where: e.external_id == ^external_id)
-    event = FeedRepo.one!(query)
-    FeedRepo.delete(event)
+    query
+    |> FeedRepo.one!()
+    |> FeedRepo.delete()
   end
 
-  defp store(%Ecto.Changeset{valid?: true} = changeset), do: FeedRepo.insert(changeset)
-  defp store(%Ecto.Changeset{valid?: false, errors: errors}), do: {:error, errors}
+  defp save_changeset(%Ecto.Changeset{valid?: true} = changeset), do: FeedRepo.insert(changeset)
+  defp save_changeset(%Ecto.Changeset{valid?: false, errors: errors}), do: {:error, errors}
 
-  defp put(%Ecto.Changeset{valid?: true} = changeset), do: FeedRepo.update(changeset)
-  defp put(%Ecto.Changeset{valid?: false, errors: errors}), do: {:error, errors}
+  defp update_changeset(%Ecto.Changeset{valid?: true} = changeset), do: FeedRepo.update(changeset)
+  defp update_changeset(%Ecto.Changeset{valid?: false, errors: errors}), do: {:error, errors}
 
-  defp emit({:ok, event}, event_type) do
+  defp publish_changes({:ok, event}, event_type) do
     event_payload = Feed.render_event(event)
     Broadcast.event(event_type, event.id, event_payload)
     {:ok, event}
   end
 
-  defp emit(err, _), do: err
+  defp publish_changes(err, _), do: err
 
   defp send_result(result), do: {:reply, result, %{}}
 end
