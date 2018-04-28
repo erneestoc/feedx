@@ -57,7 +57,7 @@ defmodule Store.Feed do
     where(query, [e], e.created_at < ^date)
   end
 
-  defp formatting(%{entries: [], metadata: metadata}), do: %{events: [], last_param: metadata}
+  defp formatting(%{entries: [], metadata: metadata}), do: %{events: [], pagination: metadata}
 
   defp formatting(%{entries: events, metadata: metadata}) do
     last = List.last(events)
@@ -68,7 +68,7 @@ defmodule Store.Feed do
 
     %{
       events: events,
-      last_param: NaiveDateTime.diff(last.inserted_at, ~N[1970-01-01 00:00:00])
+      pagination: metadata
     }
   end
 
