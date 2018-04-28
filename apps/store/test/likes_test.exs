@@ -40,6 +40,20 @@ defmodule LikeTest do
     assert length(likers) == 11
   end
 
+  test "create and delete like" do
+    user = UserTestHelper.generate_user()
+    {:ok, event} = create_event()
+    {:ok, like} = create_like(event, user)
+    preview = GenServer.call(Likes, {:preview, event.id, like.user_id})
+    assert preview.count == 1
+    preview = GenServer.call(Likes, {:delete, %{"event_id" => event.id,
+      "user_id" => like.user_id
+      }
+    })
+    preview = GenServer.call(Likes, {:preview, event.id, like.user_id})
+    assert preview.count == 0
+  end
+
   defp create_event do
     1
     |> FeedTestHelper.create()
