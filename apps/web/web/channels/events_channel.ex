@@ -18,7 +18,7 @@ defmodule Web.EventsChannel do
   end
 
   def terminate(reason, _socket) do
-    Logger.debug fn -> "> leave #{inspect reason}" end
+    _ = Logger.debug fn -> "> leave #{inspect reason}" end
     :ok
   end
 

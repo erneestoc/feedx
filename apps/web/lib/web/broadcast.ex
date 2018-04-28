@@ -11,13 +11,13 @@ defmodule Web.Broadcast do
   end
 
   def handle_cast({:event, type, id, payload}, state) do
-    event(type, id, payload)
+    _ = event(type, id, payload)
     {:noreply, state}
   end
 
   defp event(type, id, payload) do
-    Endpoint.broadcast("events:#{id}", type, payload)
-    Endpoint.broadcast("events:all", type, payload)
+    _ = Endpoint.broadcast("events:#{id}", type, payload)
+    _ = Endpoint.broadcast("events:all", type, payload)
   end
 
 end

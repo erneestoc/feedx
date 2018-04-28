@@ -47,8 +47,8 @@ defmodule Store.FeedBuilder do
   end
 
   defp dispatch(_, map) do
-    Logger.info(fn -> "[FeedBuilder] - Event not recognized" end)
-    Logger.info(fn -> "#{inspect(map)}" end)
+    _ = Logger.info(fn -> "[FeedBuilder] - Event not recognized" end)
+    _ = Logger.info(fn -> "#{inspect(map)}" end)
   end
 
   defp validate(%{"event" => data}) do

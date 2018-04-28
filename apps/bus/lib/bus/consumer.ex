@@ -4,6 +4,8 @@ defmodule Bus.Consumer do
   use AMQP
   require Logger
 
+  @type error :: {:error, reason :: :blocked | :closing}
+
   @exchange "gen_server_test_exchange"
   @queue "gen_server_test_queue"
   @queue_error "#{@queue}_error"
@@ -65,11 +67,11 @@ defmodule Bus.Consumer do
     :ok = Exchange.fanout(chan, @exchange, durable: true)
     :ok = Queue.bind(chan, @queue, @exchange)
   end
-
+  @spec consume(Channel.t, String.t, boolean(), map()) :: :ok | error
   defp consume(channel, tag, redelivered, payload) do
     json = Poison.decode!(payload)
 
-    case GenServer.call(:feed_builder, {:build, json}) do
+    _ = case GenServer.call(:feed_builder, {:build, json}) do
       {:ok, _built} ->
         Logger.debug(fn -> "[Bus.Consumer] - consume\\4 SUCCESS" end)
 
@@ -78,7 +80,7 @@ defmodule Bus.Consumer do
         Logger.debug(fn -> "[Bus.Consumer] - consume\\4 FAIL REQUEUE" end)
     end
 
-    :ok = Basic.ack(channel, tag)
+    Basic.ack(channel, tag)
   rescue
     # Requeue unless it's a redelivered message.
     # This means we will retry consuming a message once in case of exception
