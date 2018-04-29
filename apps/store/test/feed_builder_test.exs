@@ -1,7 +1,7 @@
 defmodule FeedBuilderTest do
   use ExUnit.Case
   doctest Store.FeedBuilder
-  alias Store.{FeedBuilder}
+  alias Store.{FeedBuilder, FeedRepo, Event}
 
   setup_all do
     UserTestHelper.ddl()
@@ -11,7 +11,7 @@ defmodule FeedBuilderTest do
 
   test "persist event", %{events: events} do
     event = List.first(events)
-    {:ok, event} = FeedBuilder.build(event)
+    {:ok, event} = GenServer.call(:feed_builder, {:build, event})
     assert is_number(event.tenant_id)
     assert is_binary(event.type)
   end
@@ -27,6 +27,12 @@ defmodule FeedBuilderTest do
     assert event2.content == "hello"
   end
 
-  test "delete event", %{events: _events} do
+  test "delete event", %{events: events} do
+    event_map = List.first(events)
+    {:ok, event} = GenServer.call(:feed_builder, {:build, event_map})
+    assert FeedRepo.get_by(Event, id: event.id) != nil
+    event_map = Map.put(event_map, "type", "delete")
+    {:ok, event} = GenServer.call(:feed_builder, {:build, event_map})
+    assert FeedRepo.get_by(Event, id: event.id) == nil
   end
 end

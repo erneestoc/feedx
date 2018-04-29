@@ -27,7 +27,8 @@ defmodule Bus.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:amqp, "~> 1.0.2"}
+      {:amqp, "~> 1.0.2"},
+      {:faker, "~> 0.10", only: :test}
     ]
   end
 end

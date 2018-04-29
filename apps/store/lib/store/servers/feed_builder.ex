@@ -42,11 +42,6 @@ defmodule Store.FeedBuilder do
     |> delete_event()
   end
 
-  defp dispatch(_, map) do
-    _ = Logger.info(fn -> "[FeedBuilder] - Event not recognized" end)
-    _ = Logger.info(fn -> "#{inspect(map)}" end)
-  end
-
   defp new_changeset(%{"event" => data}) do
     Event.changeset(%Event{}, data)
   end

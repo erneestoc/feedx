@@ -20,31 +20,27 @@ defmodule Bus.Consumer do
     {:ok, conn} = Connection.open(settings())
     {:ok, chan} = Channel.open(conn)
     setup_queue(chan)
-    # Limit unacknowledged messages to 10
     :ok = Basic.qos(chan, prefetch_count: 10)
-    # Register the GenServer process as a consumer
     {:ok, _consumer_tag} = Basic.consume(chan, @queue)
     {:ok, chan}
   end
 
-  # Confirmation sent by the broker after registering this process as a consumer
-  def handle_info({:basic_consume_ok, %{consumer_tag: _consumer_tag}}, chan) do
+  def handle_info({:basic_consume_ok, %{consumer_tag: consumer_tag}}, chan) do
+    _ = Logger.debug(fn -> "[Consumer] - :basic_consume_ok, consumer_tag: #{consumer_tag}" end)
     {:noreply, chan}
   end
 
-  # Sent by the broker when the consumer is
-  # unexpectedly cancelled (such as after a queue deletion)
   def handle_info({:basic_cancel, %{consumer_tag: _consumer_tag}}, chan) do
+    _ = Logger.info(fn -> "[Consumer] - :basic_cancel. Broker cancelled consumer." end)
     {:stop, :normal, chan}
   end
 
-  # Confirmation sent by the broker to the consumer process after a Basic.cancel
   def handle_info({:basic_cancel_ok, %{consumer_tag: _consumer_tag}}, chan) do
     {:noreply, chan}
   end
 
   def handle_info({:basic_deliver, payload, %{delivery_tag: tag, redelivered: redelivered}}, chan) do
-    spawn(fn -> consume(chan, tag, redelivered, payload) end)
+    consume(chan, tag, redelivered, payload)
     {:noreply, chan}
   end
 
@@ -84,15 +80,8 @@ defmodule Bus.Consumer do
 
     Basic.ack(channel, tag)
   rescue
-    # Requeue unless it's a redelivered message.
-    # This means we will retry consuming a message once in case of exception
-    # before we give up and have it moved to the error queue
-    #
-    # You might also want to catch :exit signal in production code.
-    # Make sure you call ack, nack or reject otherwise comsumer will stop
-    # receiving messages.
-    _exception ->
+    exception ->
       :ok = Basic.reject(channel, tag, requeue: not redelivered)
-      Logger.error(fn -> "Error converting #{payload} to integer" end)
+      :ok = Logger.error(fn -> "Error converting #{inspect(exception)} to integer" end)
   end
 end

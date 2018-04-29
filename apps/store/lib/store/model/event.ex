@@ -38,11 +38,12 @@ defmodule Store.Event do
     |> validate_required(@required_params)
   end
 
-  defp convert_unix_timestamp(%{date: date} = params) do
-    Map.put(params, :date, DateTime.from_unix!(date))
+  defp convert_unix_timestamp(%{"date" => date} = params) when is_number(date) do
+    Map.put(params, "date", DateTime.from_unix!(date))
   end
 
   defp convert_unix_timestamp(%{"date" => date} = params) do
-    Map.put(params, "date", DateTime.from_unix!(date))
+    {:ok, date, _utc_offset} = DateTime.from_iso8601(date)
+    Map.put(params, "date", date)
   end
 end
