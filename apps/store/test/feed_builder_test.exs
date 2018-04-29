@@ -28,7 +28,7 @@ defmodule FeedBuilderTest do
   end
 
   test "delete event", %{events: events} do
-    event_map = List.first(events)
+    event_map = List.last(events)
     {:ok, event} = GenServer.call(:feed_builder, {:build, event_map})
     assert FeedRepo.get_by(Event, id: event.id) != nil
     event_map = Map.put(event_map, "type", "delete")
