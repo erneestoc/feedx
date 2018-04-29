@@ -19,29 +19,27 @@ defmodule Store.FeedBuilder do
     |> send_result()
   end
 
-  def build(map) do
-    type = map["type"]
-    dispatch(type, map)
+  def build(%{"type" => type} = map) do
+    type
+    |> dispatch(map)
+    |> publish_changes(type)
   end
 
-  defp dispatch("create" = type, map) do
+  defp dispatch("create", map) do
     map
     |> new_changeset()
     |> save_changeset()
-    |> publish_changes(type)
   end
 
-  defp dispatch("update" = type, map) do
+  defp dispatch("update", map) do
     map
     |> validate_update()
     |> update_changeset()
-    |> publish_changes(type)
   end
 
-  defp dispatch("delete" = type, map) do
+  defp dispatch("delete", map) do
     map
     |> delete_event()
-    |> publish_changes(type)
   end
 
   defp dispatch(_, map) do
