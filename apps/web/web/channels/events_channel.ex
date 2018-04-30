@@ -11,11 +11,11 @@ defmodule Web.EventsChannel do
     {:ok, socket}
   end
 
-  def handle_info({:after_join, msg}, socket) do
+  def handle_info({:after_join, _msg}, socket) do
     {:noreply, socket}
   end
 
-  def terminate(reason, _socket) do
+  def terminate(_reason, _socket) do
     :ok
   end
 end
