@@ -31,30 +31,28 @@ defmodule Store.Feed do
 
   def index_for(params) do
     tenant_id = params["tenant_id"]
+    options = cursor_options(params)
 
     Event
     |> where([e], e.tenant_id == ^tenant_id)
-    |> add_time_constraints_for(params)
     |> order_by(desc: :inserted_at)
-    |> Repo.paginate(cursor_fields: [:inserted_at, :id], limit: 30)
+    |> Repo.paginate(options)
   end
 
   def index_all(params) do
+    options = cursor_options(params)
+
     Event
-    |> add_time_constraints_for(params)
     |> order_by(desc: :inserted_at)
-    |> Repo.paginate(cursor_fields: [:inserted_at, :id], limit: 30)
+    |> Repo.paginate(options)
   end
 
-  defp add_time_constraints_for(query, %{"after" => date}) do
-    add_time_constraints(query, date)
+  defp cursor_options(%{"pagination" => options}) do
+    [cursor_fields: [:inserted_at, :id], limit: 30, after: options]
   end
 
-  defp add_time_constraints_for(query, _), do: query
-
-  defp add_time_constraints(query, date) do
-    date = DateTime.from_unix!(date)
-    where(query, [e], e.created_at < ^date)
+  defp cursor_options(_) do
+    [cursor_fields: [:inserted_at, :id], limit: 30]
   end
 
   defp formatting(%{entries: [], metadata: metadata}), do: %{events: [], pagination: metadata}

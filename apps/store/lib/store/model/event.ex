@@ -31,18 +31,18 @@ defmodule Store.Event do
   end
 
   def changeset(event, params \\ %{}) do
-    params = convert_unix_timestamp(params)
+    params = convert_date(params)
 
     event
     |> cast(params, @params)
     |> validate_required(@required_params)
   end
 
-  defp convert_unix_timestamp(%{"date" => date} = params) when is_number(date) do
+  defp convert_date(%{"date" => date} = params) when is_number(date) do
     Map.put(params, "date", DateTime.from_unix!(date))
   end
 
-  defp convert_unix_timestamp(%{"date" => date} = params) do
+  defp convert_date(%{"date" => date} = params) do
     {:ok, date, _utc_offset} = DateTime.from_iso8601(date)
     Map.put(params, "date", date)
   end
