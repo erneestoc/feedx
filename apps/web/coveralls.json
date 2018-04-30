@@ -1,0 +1,7 @@
+{
+  "skip_files": [
+    "lib/web.ex",
+    "web/views/error_view.ex",
+    "web/web.ex"
+  ]
+}

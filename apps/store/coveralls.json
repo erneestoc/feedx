@@ -1,0 +1,9 @@
+{
+  "skip_files": [
+    "lib/store.ex",
+    "lib/store/supervisor.ex",
+    "lib/store/supervisors",
+    "lib/store/repos/feed_repo.ex",
+    "lib/store/repos/source_repo.ex"
+  ]
+}

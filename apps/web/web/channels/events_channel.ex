@@ -12,13 +12,10 @@ defmodule Web.EventsChannel do
   end
 
   def handle_info({:after_join, msg}, socket) do
-    broadcast! socket, "user:entered", %{user: msg["user"]}
-    push socket, "join", %{status: "connected"}
     {:noreply, socket}
   end
 
   def terminate(reason, _socket) do
-    _ = Logger.debug fn -> "> leave #{inspect reason}" end
     :ok
   end
 end

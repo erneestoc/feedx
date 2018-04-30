@@ -40,7 +40,6 @@ defmodule FeedTest do
   end
 
   test "retrieve global feed", %{events: _events} do
-    tenant_id = :rand.uniform(1_000_000_000)
     result = GenServer.call(Feed, {:index_all, %{}})
     assert is_list(result.events)
   end
